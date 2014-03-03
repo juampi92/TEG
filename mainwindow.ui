@@ -96,8 +96,6 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
        </widget>
-       <zorder>graphicsView</zorder>
-       <zorder>consoleOut</zorder>
       </widget>
       <widget class="QFrame" name="consoleFrame">
        <property name="geometry">
@@ -341,36 +339,42 @@
    </property>
    <widget class="QMenu" name="menuMenu">
     <property name="title">
+     <string>Juego</string>
+    </property>
+    <addaction name="btnNuevoJuego"/>
+    <addaction name="btnReiniciarJuego"/>
+   </widget>
+   <widget class="QMenu" name="menuJugador">
+    <property name="title">
      <string>Partida</string>
     </property>
-    <addaction name="btnPartidaNueva"/>
-    <addaction name="btnPartidaReiniciar"/>
-   </widget>
-   <widget class="QMenu" name="menuReglas">
-    <property name="title">
-     <string>Reglas</string>
-    </property>
-    <property name="toolTipsVisible">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuSalir">
-    <property name="title">
-     <string>Salir</string>
-    </property>
+    <addaction name="btnNewPlayer"/>
+    <addaction name="btnIniciarPartida"/>
    </widget>
    <addaction name="menuMenu"/>
-   <addaction name="menuReglas"/>
-   <addaction name="menuSalir"/>
+   <addaction name="menuJugador"/>
   </widget>
-  <action name="btnPartidaNueva">
+  <action name="btnNuevoJuego">
    <property name="text">
-    <string>Nueva</string>
+    <string>Nuevo</string>
    </property>
   </action>
-  <action name="btnPartidaReiniciar">
+  <action name="btnReiniciarJuego">
    <property name="text">
     <string>Reiniciar</string>
+   </property>
+  </action>
+  <action name="btnNewPlayer">
+   <property name="text">
+    <string>Nuevo Jugador</string>
+   </property>
+   <property name="toolTip">
+    <string>Nuevo Juegador</string>
+   </property>
+  </action>
+  <action name="btnIniciarPartida">
+   <property name="text">
+    <string>Iniciar</string>
    </property>
   </action>
  </widget>

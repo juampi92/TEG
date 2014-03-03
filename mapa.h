@@ -19,9 +19,9 @@ public:
 
 private:
     TEG::Game *game;
-    TEG::Continente** continentes = new TEG::Continente*[6];
-    TEG::Pais** paises = new TEG::Pais*[50];
-    QList<TEG::Pais*>** relaciones = new QList<TEG::Pais*>*[50];
+    TEG::Continente** continentes;
+    TEG::Pais** paises;
+    QList<TEG::Pais*>** relaciones;
 
 };
 

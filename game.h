@@ -3,10 +3,12 @@
 
 #include "mainwindow.h"
 #include "mapa.h"
+#include "jugador.h"
 
 namespace TEG {
     class Mapa;
     class Game;
+    class Jugador;
 }
 class MainWindow;
 
@@ -16,10 +18,19 @@ public:
     Game(MainWindow *gui);
     ~Game();
 
-    MainWindow *gui;
+    QStringList getColores(QStringList lista);
+    int getCantPlayers() const;
+    bool existsPlayerName(QString nom);
 
+    void addPlayer(QString nom, QString color, int IA);
+
+    void start();
+
+    MainWindow *gui;
 private:
     TEG::Mapa *mapa;
+    QList<TEG::Jugador*> *jugadores;
+    QList<TEG::Objetivo*> *objetivos;
 };
 
 #endif // GAME_H

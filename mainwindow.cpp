@@ -4,6 +4,8 @@
 #include <QGraphicsTextItem>
 #include <QPushButton>
 #include <Qcursor>
+#include <QInputDialog>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -46,21 +48,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setUpConnections(){
-   connect(ui->btnPartidaNueva,SIGNAL(triggered()),this,SLOT(callback()));
-   connect(this->paises, SIGNAL(buttonClicked(int)), this, SLOT(buttonSelect(int)));
-}
-
-void MainWindow::callback(){
-    qDebug() << "Apretaste el menu";
-}
-
 void MainWindow::addPais(int id, QString nom, int x, int y){
     QPushButton* btn = new QPushButton;
     btn->setGeometry(QRect(x, y, 25, 25));
     btn->setText("0");
     btn->setToolTip(nom);
     btn->setCursor(Qt::PointingHandCursor);
+    btn->setProperty("clase","pais");
     paises->addButton(btn,id);
     board->addWidget(btn);
 }
@@ -84,10 +78,6 @@ void MainWindow::allEnabled(bool enabled){
         (*i)->setEnabled(enabled);
 }
 
-void MainWindow::buttonSelect(int id){
-    this->consoleLog("Presionaste el boton ID: " + QString::number(id));
-}
-
 void MainWindow::setDados(QList<int> atac, QList<int> def){
     QString out = "Ataque: ";
 
@@ -109,4 +99,83 @@ void MainWindow::consoleLog(QString msj){
     qDebug() << "MSJ: " <<  msj;
 }
 
+void MainWindow::addPlayer(QString nom, QString color, int IA, int id){
+    this->consoleLog("Jugador creado: " + nom + ". Color: "+color +". IA:"+QString::number(IA));
 
+    QTableWidgetItem *colColor = new QTableWidgetItem();
+    colColor->setBackgroundColor(QColor(color));
+
+    ui->playersTable->setItem(id,0,colColor);
+    ui->playersTable->setItem(id,1,new QTableWidgetItem(nom));
+}
+
+QStringList MainWindow::getColores(){
+    QStringList colores;
+    colores << tr("red") << tr("black") << tr("blue") << tr("green") << tr("yellow") << tr("purple");
+    return this->game->getColores(colores);
+}
+
+// --------------------------------------
+//          Slots:
+// --------------------------------------
+
+void MainWindow::setUpConnections(){
+   // Menu connect
+   connect(ui->btnNewPlayer,SIGNAL(triggered()),this,SLOT(popupCreatePlayer()));
+   connect(ui->btnIniciarPartida,SIGNAL(triggered()),this,SLOT(start()));
+
+   // Paises
+   connect(this->paises, SIGNAL(buttonClicked(int)), this, SLOT(buttonSelect(int)));
+}
+
+void MainWindow::buttonSelect(int id){
+    this->consoleLog("Presionaste el boton ID: " + QString::number(id));
+}
+
+void MainWindow::popupCreatePlayer(){
+
+    if ( this->game->getCantPlayers() >= 6 ){
+        QMessageBox::information(this, tr("Error!"),tr("El máximo de 6 jugadores ya fue alcanzado"));
+        return;
+    }
+
+    bool ok; int IA;
+    QString nom,color;
+
+    // Crear Jugador: Nombre
+    nom = QInputDialog::getText(this, tr("Nuevo Jugador"), tr("Nombre:"), QLineEdit::Normal,
+                        "Jugador" + QString::number(this->game->getCantPlayers()), &ok);
+
+    // Errores
+    if (!ok) return;
+    if ( nom.isEmpty() ) {
+        QMessageBox::information(this, tr("Error!"),tr("El nombre esta vacio"));
+        return;
+    }
+    if ( this->game->existsPlayerName(nom) ){
+        QMessageBox::information(this, tr("Error!"),tr("Ese nombre ya esta en uso"));
+        return;
+    }
+
+    // Crear Jugador: Color
+    color = QInputDialog::getItem(this, tr("Nuevo Jugador"), tr("Color:"), this->getColores(), 0, false, &ok);
+
+    // Errores
+    if (!ok || color.isEmpty())
+        return;
+
+    // Crear Jugador: IA
+    IA = QInputDialog::getInt(this,tr("Nuevo Jugador"),tr("Inteligencia Artificial. (cancelar si no se desea)"),1,1,5,1,&ok);
+    if ( !ok ) IA = 0;
+
+    this->game->addPlayer(nom,color,IA);
+}
+
+void MainWindow::start(){
+    if ( this->game->getCantPlayers() < 3 ){
+        QMessageBox::information(this, tr("Error!"),tr("Se necesita un mínimo de 3 jugadores"));
+        return;
+    }
+
+    this->game->start();
+}

@@ -1,12 +1,12 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-02-25T20:32:56
+# Project created by QtCreator
 #
 #-------------------------------------------------
 
 QT       += core gui widgets quick
 
-TARGET = teg
+TARGET = TEG
 TEMPLATE = app
 
 SOURCES += main.cpp\
@@ -14,13 +14,17 @@ SOURCES += main.cpp\
     game.cpp \
     mapa.cpp \
     continente.cpp \
-    pais.cpp
+    pais.cpp \
+    jugador.cpp \
+    objetivo.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
     mapa.h \
     continente.h \
-    pais.h
+    pais.h \
+    jugador.h \
+    objetivo.h
 
 FORMS    += mainwindow.ui
 

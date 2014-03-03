@@ -27,3 +27,7 @@ int TEG::Pais::removeEjercitos(int cant){
     this->ejercitos -= cant;
     return this->ejercitos;
 }
+
+int TEG::Pais::getContinenteID() const{
+    return this->cont_id;
+}

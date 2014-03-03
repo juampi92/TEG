@@ -19,6 +19,8 @@ public:
     int addEjercitos(int cant);
     int removeEjercitos(int cant);
 
+    int getContinenteID() const;
+
 private:
     int id;
     QString nom;

@@ -2,6 +2,9 @@
 
 TEG::Mapa::Mapa(TEG::Game *game){
     this->game = game;
+    this->continentes = new TEG::Continente*[6];
+    this->paises = new TEG::Pais*[50];
+    this->relaciones = new QList<TEG::Pais*>*[50];
 
     this->continentes[0] = new TEG::Continente("America del Norte",0);
     this->continentes[1] = new TEG::Continente("America del Sur",1);
@@ -16,7 +19,7 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->paises[3] = new TEG::Pais(3,"Oregon",0);				this->game->gui->addPais(3,"Oregon",42,256);
     this->paises[4] = new TEG::Pais(4,"California",0);			this->game->gui->addPais(4,"California",90,272);
     this->paises[5] = new TEG::Pais(5,"Mexico",0);				this->game->gui->addPais(5,"Mexico",142,278);
-    this->paises[6] = new TEG::Pais(6,"Nueva_York",0);			this->game->gui->addPais(6,"Nueva_York",180,220);
+    this->paises[6] = new TEG::Pais(6,"Nueva York",0);			this->game->gui->addPais(6,"Nueva York",180,220);
     this->paises[7] = new TEG::Pais(7,"Terranova",0);			this->game->gui->addPais(7,"Terranova",205,198);
     this->paises[8] = new TEG::Pais(8,"Labrador",0);			this->game->gui->addPais(8,"Labrador",195,145);
     this->paises[9] = new TEG::Pais(9,"Groenlandia",0);			this->game->gui->addPais(9,"Groenlandia",259,139);
@@ -31,7 +34,7 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->paises[16] = new TEG::Pais(16,"Islandia",2);			this->game->gui->addPais(16,"Islandia",341,229);
     this->paises[17] = new TEG::Pais(17,"Suecia",2);			this->game->gui->addPais(17,"Suecia",469,132);
     this->paises[18] = new TEG::Pais(18,"Rusia",2);				this->game->gui->addPais(18,"Rusia",543,161);
-    this->paises[19] = new TEG::Pais(19,"Gran_Bretaña",2);		this->game->gui->addPais(19,"Gran_Bretaña",427,201);
+    this->paises[19] = new TEG::Pais(19,"Gran Bretaña",2);		this->game->gui->addPais(19,"Gran Bretaña",427,201);
     this->paises[20] = new TEG::Pais(20,"Polonia",2);			this->game->gui->addPais(20,"Polonia",550,259);
     this->paises[21] = new TEG::Pais(21,"Alemania",2);			this->game->gui->addPais(21,"Alemania",502,241);
     this->paises[22] = new TEG::Pais(22,"Francia",2);			this->game->gui->addPais(22,"Francia",258,263);
