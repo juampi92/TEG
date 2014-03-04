@@ -25,6 +25,7 @@ public:
     TEG::Pais* paises[50];
     QList<TEG::Pais*>* relaciones[50];
 private:
+    QList<TEG::Pais*>* getPaisesList(int,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1);
     TEG::Game *game;
 
 };
