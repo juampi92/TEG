@@ -9,6 +9,8 @@
 namespace TEG {
     class Game;
     class Mapa;
+    class Continente;
+    class Pais;
 }
 
 class TEG::Mapa
@@ -17,11 +19,13 @@ public:
     Mapa(TEG::Game *game);
     ~Mapa();
 
+    QList<Pais *> *getLimitrofes(int id);
+
+    TEG::Continente* continentes[6];
+    TEG::Pais* paises[50];
+    QList<TEG::Pais*>* relaciones[50];
 private:
     TEG::Game *game;
-    TEG::Continente** continentes;
-    TEG::Pais** paises;
-    QList<TEG::Pais*>** relaciones;
 
 };
 

@@ -8,6 +8,7 @@
 
 namespace TEG{
     class Objetivo;
+    class Pais;
 }
 
 class TEG::Objetivo

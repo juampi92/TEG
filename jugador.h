@@ -17,6 +17,7 @@ public:
     Jugador(TEG::Game *game, QString nom, int id, QString color);
     ~Jugador();
 
+    int getID();
     QString getColor();
     QString getName();
 
@@ -25,7 +26,6 @@ public:
     void removePais(TEG::Pais *pais);
 
     void playFichas();
-
 
 protected:
     TEG::Game *game;

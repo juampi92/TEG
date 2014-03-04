@@ -31,10 +31,11 @@ public:
     //void setPaisesColor(QList<int> *paises, QString color);
 
     void setPaisFichas(int id, int cant);
-    //void setPaisesFichas(QList<int> *paises, int cant);
+    void setPaisesFichas(QList<int> *paises, int cant);
 
     void setPaisEnabled(int id, bool enabled);
-    //void setPaisesEnabled(QList<int> *paises, bool enabled); // Activa los paises pasados por la lista
+    void setPaisEnabled(QAbstractButton * btn, bool enabled);
+    void setPaisesEnabled(QList<int> *paises, bool enabled); // Activa los paises pasados por la lista
 
     void setDados(QList<int> atac, QList<int> def);
 

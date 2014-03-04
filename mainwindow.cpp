@@ -67,15 +67,40 @@ void MainWindow::setPaisFichas(int id, int cant){
     paises->button(id)->setText(QString::number(cant));
 }
 
+void MainWindow::setPaisesFichas(QList<int> *paises, int cant){
+    for ( QList<int>::iterator i = paises->begin() ; i != paises->end() ; i++ )
+        this->setPaisFichas((*i),cant);
+}
+void MainWindow::setPaisEnabled(QAbstractButton * btn, bool enabled){
+    btn->setEnabled(enabled);
+    QString color;
+    if ( !enabled ){
+        color = "grey";
+    } else {
+        color = this->game->getPaisColor(this->paises->id(btn));
+    }
+    btn->setStyleSheet("background-color:"+color+";");
+}
+
 void MainWindow::setPaisEnabled(int id, bool enabled){
-    paises->button(id)->setEnabled(enabled);
+    this->setPaisEnabled(paises->button(id),enabled);
+
+}
+
+void MainWindow::setPaisesEnabled(QList<int> *paises, bool enabled){
+    for ( QList<int>::iterator i = paises->begin() ; i != paises->end() ; i++ )
+        this->setPaisEnabled((*i),enabled);
 }
 
 void MainWindow::allEnabled(bool enabled){
+    int cont = 0;
     QList<QAbstractButton*> lista = paises->buttons();
     QList<QAbstractButton*>::iterator i;
-    for (i = lista.begin(); i != lista.end(); ++i)
-        (*i)->setEnabled(enabled);
+    for (i = lista.begin(); i != lista.end(); i++){
+        cont++;
+        this->setPaisEnabled((*i),enabled);
+    }
+    qDebug() << cont;
 }
 
 void MainWindow::setDados(QList<int> atac, QList<int> def){
@@ -130,6 +155,7 @@ void MainWindow::setUpConnections(){
 
 void MainWindow::buttonSelect(int id){
     this->consoleLog("Presionaste el boton ID: " + QString::number(id));
+    this->game->pressed(id);
 }
 
 void MainWindow::popupCreatePlayer(){
@@ -172,7 +198,7 @@ void MainWindow::popupCreatePlayer(){
 }
 
 void MainWindow::start(){
-    if ( this->game->getCantPlayers() < 3 ){
+    if ( this->game->getCantPlayers() < 2 ){
         QMessageBox::information(this, tr("Error!"),tr("Se necesita un mínimo de 3 jugadores"));
         return;
     }

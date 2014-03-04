@@ -28,6 +28,22 @@ int TEG::Pais::removeEjercitos(int cant){
     return this->ejercitos;
 }
 
+void TEG::Pais::setOwner(TEG::Jugador *player){
+    this->owner = player;
+}
+
 int TEG::Pais::getContinenteID() const{
     return this->cont_id;
+}
+
+int TEG::Pais::getID() const{
+    return this->id;
+}
+
+TEG::Jugador * TEG::Pais::getOwner() const{
+    return this->owner;
+}
+
+QString TEG::Pais::getName() const{
+    return this->nom;
 }

@@ -2,9 +2,6 @@
 
 TEG::Mapa::Mapa(TEG::Game *game){
     this->game = game;
-    this->continentes = new TEG::Continente*[6];
-    this->paises = new TEG::Pais*[50];
-    this->relaciones = new QList<TEG::Pais*>*[50];
 
     this->continentes[0] = new TEG::Continente("America del Norte",0);
     this->continentes[1] = new TEG::Continente("America del Sur",1);
@@ -37,7 +34,7 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->paises[19] = new TEG::Pais(19,"Gran Bretaña",2);		this->game->gui->addPais(19,"Gran Bretaña",427,201);
     this->paises[20] = new TEG::Pais(20,"Polonia",2);			this->game->gui->addPais(20,"Polonia",550,259);
     this->paises[21] = new TEG::Pais(21,"Alemania",2);			this->game->gui->addPais(21,"Alemania",502,241);
-    this->paises[22] = new TEG::Pais(22,"Francia",2);			this->game->gui->addPais(22,"Francia",258,263);
+    this->paises[22] = new TEG::Pais(22,"Francia",2);			this->game->gui->addPais(22,"Francia",458,263);
     this->paises[23] = new TEG::Pais(23,"España",2);			this->game->gui->addPais(23,"España",403,302);
     this->paises[24] = new TEG::Pais(24,"Italia",2);			this->game->gui->addPais(24,"Italia",500,300);
 
@@ -68,7 +65,25 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->paises[47] = new TEG::Pais(47,"Borneo",5);			this->game->gui->addPais(47,"Borneo",722,335);
     this->paises[48] = new TEG::Pais(48,"Java",5);				this->game->gui->addPais(48,"Java",769,309);
     this->paises[49] = new TEG::Pais(49,"Australia",5);			this->game->gui->addPais(49,"Australia",750,397);
+
+    QList<TEG::Pais*> * li;
+    li = new QList<TEG::Pais*>();
+        li->append(this->paises[1]);
+        li->append(this->paises[3]);
+        li->append(this->paises[35]);
+    this->relaciones[0] = li;
+
+    li = new QList<TEG::Pais*>();
+        li->append(this->paises[0]);
+        li->append(this->paises[3]);
+        li->append(this->paises[2]);
+    this->relaciones[1] = li;
+
 }
 
 TEG::Mapa::~Mapa(){
+}
+
+QList<TEG::Pais*> * TEG::Mapa::getLimitrofes(int id){
+    return this->relaciones[id];
 }

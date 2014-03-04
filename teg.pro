@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     continente.cpp \
     pais.cpp \
     jugador.cpp \
-    objetivo.cpp
+    objetivo.cpp \
+    utiles.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -24,7 +25,8 @@ HEADERS  += mainwindow.h \
     continente.h \
     pais.h \
     jugador.h \
-    objetivo.h
+    objetivo.h \
+    utiles.h
 
 FORMS    += mainwindow.ui
 

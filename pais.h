@@ -3,8 +3,11 @@
 
 #include <QString>
 
+#include "jugador.h"
+
 namespace TEG {
     class Pais;
+    class Jugador;
 }
 
 class TEG::Pais
@@ -19,12 +22,17 @@ public:
     int addEjercitos(int cant);
     int removeEjercitos(int cant);
 
+    void setOwner(TEG::Jugador *player);
+
     int getContinenteID() const;
+    int getID() const;
+    TEG::Jugador * getOwner() const;
+    QString getName() const;
 
 private:
     int id;
     QString nom;
-    //TEG::Player *owner;
+    TEG::Jugador *owner;
     int ejercitos;
     int cont_id;
 };

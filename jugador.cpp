@@ -5,9 +5,14 @@ TEG::Jugador::Jugador(TEG::Game *game, QString nom, int id, QString color){
     this->nom = nom;
     this->id = id;
     this->color = color;
+    this->paises = new QList<TEG::Pais*>();
 }
 
 TEG::Jugador::~Jugador(){
+}
+
+int TEG::Jugador::getID(){
+    return this->id;
 }
 
 QString TEG::Jugador::getColor(){
@@ -16,4 +21,8 @@ QString TEG::Jugador::getColor(){
 
 QString TEG::Jugador::getName(){
     return this->nom;
+}
+
+void TEG::Jugador::addPais(TEG::Pais *pais){
+    this->paises->append(pais);
 }

@@ -8,6 +8,7 @@
 
 namespace TEG{
     class Continente;
+    class Pais;
 }
 
 class TEG::Continente
