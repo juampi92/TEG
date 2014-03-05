@@ -47,13 +47,9 @@ private:
 
     TEG::Mapa *mapa;
     QList<TEG::Jugador*> *jugadores;
-<<<<<<< HEAD
-    QList<TEG::Objetivo*> *objetivos;
+    TEG::Objetivo *objetivos[7];
 
     TEG::Turno *turno;
-=======
-    TEG::Objetivo *objetivos[7];
->>>>>>> 9c0e5b01fef6046404c3aebcf59cbcedd4b3639d
 };
 
 #endif // GAME_H

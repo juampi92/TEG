@@ -52,11 +52,7 @@ QStringList TEG::Game::getColores(QStringList lista){
     return colores;
 }
 
-<<<<<<< HEAD
 int TEG::Game::getCantPlayers(){
-=======
-int TEG::Game::getCantPlayers() const{
->>>>>>> 9c0e5b01fef6046404c3aebcf59cbcedd4b3639d
     return this->jugadores->size();
 }
 
@@ -138,13 +134,12 @@ void TEG::Game::shufflePaises(){
 
 void TEG::Game::shuffleObjetivos(){
     TEG::Objetivo ** shuffled = TEG::Utiles::shuffle(this->objetivos,7);
-    int j=0;
+    int j = 0;
     QList<TEG::Jugador*>::iterator it = this->jugadores->begin();
-    for(it; it!= this->jugadores->end(); it++){
+    for( it ; it != this->jugadores->end(); it++){
         (*it)->setObjetivo(shuffled[j]);
         j++;
     }
-
 }
 
 QList<int> * TEG::Game::toIntList(QList<TEG::Pais *> *paises){
