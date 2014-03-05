@@ -23,6 +23,10 @@ QString TEG::Jugador::getName(){
     return this->nom;
 }
 
+void TEG::Jugador::setObjetivo(TEG::Objetivo *obj){
+    this->objetivo = obj;
+}
+
 void TEG::Jugador::addPais(TEG::Pais *pais){
     this->paises->append(pais);
 }

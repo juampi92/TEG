@@ -23,9 +23,8 @@ public:
 
 private:
     int id;
-    QString descr;
     int *continentes;
-
+    QString descr;
     int *getContArray(const QList<TEG::Pais*> *paises);
 };
 
