@@ -150,5 +150,5 @@ QList<TEG::Pais*>* TEG::Mapa::getPaisesList(int a,int b,int c,int d,int e,int f,
     if(h > -1)
         li->append(this->paises[h]);
 
-return li;
+    return li;
 }

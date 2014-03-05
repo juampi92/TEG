@@ -1,6 +1,9 @@
 #include "game.h"
 #include "utiles.h"
 
+#include "turnoataques.h"
+#include "turnofichas.h"
+
 TEG::Game::Game(MainWindow *gui){
     this->gui = gui;
     this->mapa = new TEG::Mapa(this);
@@ -23,13 +26,21 @@ TEG::Game::Game(MainWindow *gui){
     a = new int[6] {5,6,0,0,6,0};
     this->objetivos->append(new TEG::Objetivo(7,QString("Ocupar América del Sur, África y 5 países de América del Norte."),a));
 
+
+    // Creación automática de jugadores. Propósitos de Test
     this->addPlayer("Juan","red",0);
     this->addPlayer("Diego","black",0);
     this->addPlayer("Compu","blue",1);
+
+    this->gui->setTurno(0,this->getCantPlayers());
+    this->gui->setPlayerInfo("Juampi",5,5,0);
+
 }
 
 TEG::Game::~Game(){
     delete mapa;
+    // Borrar lista de jugadores con los jugadores
+    // Borrar lista de objetivos
 }
 
 QStringList TEG::Game::getColores(QStringList lista){
@@ -41,9 +52,11 @@ QStringList TEG::Game::getColores(QStringList lista){
 
     return colores;
 }
-int TEG::Game::getCantPlayers() const{
+
+int TEG::Game::getCantPlayers(){
     return this->jugadores->size();
 }
+
 bool TEG::Game::existsPlayerName(QString nom){
     QList<TEG::Jugador*>::iterator i;
     for (i = this->jugadores->begin(); i != this->jugadores->end(); ++i)
@@ -56,12 +69,12 @@ QString TEG::Game::getPaisColor(int id) const{
 }
 
 void TEG::Game::addPlayer(QString nom, QString color, int IA){
-    int id = jugadores->size();
+    int id = this->jugadores->size();
     if ( IA == 0 ){
-        jugadores->append(new TEG::Jugador(this,nom,id,color));
+        this->jugadores->append(new TEG::Jugador(this,nom,id,color));
     } else {
         // Agregar IA, pero esto es para test.
-        jugadores->append(new TEG::Jugador(this,nom,id,color));
+        this->jugadores->append(new TEG::Jugador(this,nom,id,color));
     }
 
     this->gui->addPlayer(nom,color,IA,id);
@@ -116,6 +129,7 @@ void TEG::Game::shufflePaises(){
         this->gui->setPaisFichas(aux->getID(),1);
         i++;
     }
+    this->jugadores->size();
 }
 
 QList<int> * TEG::Game::toIntList(QList<TEG::Pais *> *paises){
@@ -135,4 +149,5 @@ QList<int> * TEG::Game::toIntList(QList<TEG::Pais *> *paises){
 void TEG::Game::pressed(int id){
     this->gui->allEnabled(false);
     this->gui->setPaisesEnabled(this->toIntList(this->getBorderEnemies(id,this->jugadores->at(0))),true);
+    this->gui->setPaisSelected(id,true);
 }

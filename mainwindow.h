@@ -37,6 +37,8 @@ public:
     void setPaisEnabled(QAbstractButton * btn, bool enabled);
     void setPaisesEnabled(QList<int> *paises, bool enabled); // Activa los paises pasados por la lista
 
+    void setPaisSelected(int id, bool selected);
+
     void setDados(QList<int> atac, QList<int> def);
 
     void allEnabled(bool enabled);
@@ -44,6 +46,9 @@ public:
     void consoleLog(QString msj);
 
     void addPlayer(QString nom, QString color, int IA, int id);
+    void setTurno(int id , int cant);
+
+    void setPlayerInfo(QString nom, int paises, int ej, int ej_rest);
 
     QStringList getColores();
 private:
@@ -54,10 +59,14 @@ private:
 
     void setUpConnections();
 
+    // Files cache
+    QIcon *pcIco;
+
 public slots: // Botones accesibles desde afuera
     void buttonSelect(int id);
 
 private slots: // Botones internos
+    void verObjetivo(); //Pop up del objetivo
     void popupCreatePlayer(); // Crea el formulario para agregar un nuevo jugador.
     void start(); // Comienza el juego.
 };

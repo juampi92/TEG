@@ -5,6 +5,7 @@
 #include "mapa.h"
 #include "jugador.h"
 #include "objetivo.h"
+#include "turno.h"
 
 namespace TEG {
     class Mapa;
@@ -21,7 +22,7 @@ public:
     ~Game();
 
     QStringList getColores(QStringList lista);
-    int getCantPlayers() const;
+    int getCantPlayers();
     bool existsPlayerName(QString nom);
 
     QString getPaisColor(int id) const;
@@ -47,6 +48,8 @@ private:
     TEG::Mapa *mapa;
     QList<TEG::Jugador*> *jugadores;
     QList<TEG::Objetivo*> *objetivos;
+
+    TEG::Turno *turno;
 };
 
 #endif // GAME_H

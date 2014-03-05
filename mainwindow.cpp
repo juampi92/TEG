@@ -23,22 +23,40 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     qApp->setStyleSheet(styleSheet.readAll());
 
+    // SetUp Board
     this->board = new QGraphicsScene();
+    this->board->addItem(new QGraphicsPixmapItem(QPixmap("mapa.jpg")));
     ui->graphicsView->setScene(this->board);
     ui->graphicsView->show();
 
     this->paises = new QButtonGroup();
 
-    this->board->addItem(new QGraphicsPixmapItem(QPixmap("mapa.jpg")));
+
+    // SetUp Tables
+        // Players
+    ui->playersTable->setColumnWidth(0,20);
+    ui->playersTable->setColumnWidth(1,126);
+    ui->playersTable->setColumnWidth(2,35);
+    ui->playersTable->setColumnWidth(3,5);
+
+        // PlayerInfo
+    ui->playerInfo->setColumnWidth(0,140);
+    ui->playerInfo->setColumnWidth(1,50);
+
+    QPushButton * btn = new QPushButton("Ver");
+    btn->setMaximumWidth(45);
+    ui->playerInfo->setCellWidget(3,1,btn);
+
+    ui->playerInfo->setDisabled(true);
+
+
+
+
+
 
     setUpConnections();
 
-    ui->playersTable->setColumnWidth(0,20);
-    ui->playersTable->setColumnWidth(1,126);
-    ui->playersTable->setColumnWidth(2,20);
-    ui->playersTable->setColumnWidth(3,20);
-
-    // MAX: ui->playersTable->setRowCount(6);
+    this->pcIco = new QIcon("pc.png");
 
     this->game = new TEG::Game(this);
 }
@@ -74,17 +92,16 @@ void MainWindow::setPaisesFichas(QList<int> *paises, int cant){
 void MainWindow::setPaisEnabled(QAbstractButton * btn, bool enabled){
     btn->setEnabled(enabled);
     QString color;
-    if ( !enabled ){
+    if ( !enabled )
         color = "grey";
-    } else {
-        color = this->game->getPaisColor(this->paises->id(btn));
-    }
-    btn->setStyleSheet("background-color:"+color+";");
+    else
+        color = "white";
+    btn->setStyleSheet("color:"+color+";background-color:"+this->game->getPaisColor(this->paises->id(btn))+";");
+        // Hay que volver a setear el color, porque lo pierde
 }
 
 void MainWindow::setPaisEnabled(int id, bool enabled){
     this->setPaisEnabled(paises->button(id),enabled);
-
 }
 
 void MainWindow::setPaisesEnabled(QList<int> *paises, bool enabled){
@@ -100,7 +117,17 @@ void MainWindow::allEnabled(bool enabled){
         cont++;
         this->setPaisEnabled((*i),enabled);
     }
-    qDebug() << cont;
+}
+
+void MainWindow::setPaisSelected(int id, bool selected){
+    QAbstractButton * btn = paises->button(id);
+    QString border = "";
+    if ( selected )
+        border = "yellow";
+    else
+        border = "black";
+    btn->setStyleSheet("border-color:"+border+";color:white;background-color:"+this->game->getPaisColor(id)+";");
+    btn->setEnabled(true);
 }
 
 void MainWindow::setDados(QList<int> atac, QList<int> def){
@@ -132,6 +159,25 @@ void MainWindow::addPlayer(QString nom, QString color, int IA, int id){
 
     ui->playersTable->setItem(id,0,colColor);
     ui->playersTable->setItem(id,1,new QTableWidgetItem(nom));
+    if ( IA > 0 ) ui->playersTable->setItem(id,2,new QTableWidgetItem(*this->pcIco,QString::number(IA)));
+    ui->playersTable->setItem(id,3,new QTableWidgetItem());
+}
+
+void MainWindow::setTurno(int id, int cant){
+    QString color;
+    for ( int i = 0 ; i < cant ; i++  ) {
+        if ( i == id ) color = "green";
+        else color = "white";
+        ui->playersTable->item(i,3)->setBackgroundColor(QColor(color));
+    }
+}
+
+void MainWindow::setPlayerInfo(QString nom, int paises, int ej, int ej_rest){
+    this->ui->playerCurrent->setText(nom);
+    this->ui->playerInfo->setItem(0,1,new QTableWidgetItem(QString::number(paises)));
+    this->ui->playerInfo->setItem(1,1,new QTableWidgetItem(QString::number(ej)));
+    this->ui->playerInfo->setItem(2,1,new QTableWidgetItem(QString::number(ej_rest)));
+    this->ui->playerInfo->setEnabled(true);
 }
 
 QStringList MainWindow::getColores(){
@@ -149,6 +195,9 @@ void MainWindow::setUpConnections(){
    connect(ui->btnNewPlayer,SIGNAL(triggered()),this,SLOT(popupCreatePlayer()));
    connect(ui->btnIniciarPartida,SIGNAL(triggered()),this,SLOT(start()));
 
+   // Botones
+   connect(ui->playerInfo->cellWidget(3,1), SIGNAL(clicked()),this,SLOT(verObjetivo()));
+
    // Paises
    connect(this->paises, SIGNAL(buttonClicked(int)), this, SLOT(buttonSelect(int)));
 }
@@ -156,6 +205,10 @@ void MainWindow::setUpConnections(){
 void MainWindow::buttonSelect(int id){
     this->consoleLog("Presionaste el boton ID: " + QString::number(id));
     this->game->pressed(id);
+}
+
+void MainWindow::verObjetivo(){
+    QMessageBox::information(this, tr("Objetivo"),tr("Conquistar bla bla bla"));
 }
 
 void MainWindow::popupCreatePlayer(){

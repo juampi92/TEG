@@ -17,7 +17,10 @@ SOURCES += main.cpp\
     pais.cpp \
     jugador.cpp \
     objetivo.cpp \
-    utiles.cpp
+    utiles.cpp \
+    turno.cpp \
+    turnofichas.cpp \
+    turnoataques.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -26,7 +29,10 @@ HEADERS  += mainwindow.h \
     pais.h \
     jugador.h \
     objetivo.h \
-    utiles.h
+    utiles.h \
+    turno.h \
+    turnofichas.h \
+    turnoataques.h
 
 FORMS    += mainwindow.ui
 
