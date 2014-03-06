@@ -14,10 +14,11 @@ class TEG::Turno
 {
 public:
     Turno(TEG::RondaManager *ronda, TEG::Jugador *plyr);
-    ~Turno();
+    virtual ~Turno();
 
     virtual int getFichasDisp();
     virtual void play();
+    virtual bool next();
 
     virtual void paisClick(int id);
 

@@ -2,11 +2,14 @@
 #define RONDAMANAGER_H
 
 #include "game.h"
+#include "jugador.h"
 #include "turno.h"
 
 namespace TEG{
     class RondaManager;
     class Turno;
+    class Jugador;
+    class Game;
 }
 
 class TEG::RondaManager
@@ -18,19 +21,25 @@ public:
     void start();
     void end();
     void nextTurno();
+    void nextRonda();
     void playTurno();
 
     void setType(int t);
 
     void btnClick(int id);
+    void btnNext();
 
     TEG::Game *game;
 private:
     int type;
-    QList<TEG::Jugador*>::iterator begin;
+    int special;
+    QList<TEG::Jugador*> *players;
     QList<TEG::Jugador*>::iterator actual;
+    QList<TEG::Jugador*>::iterator inicio;
 
     TEG::Turno *turno;
+
+    void desplazarOrden();
 };
 
 #endif // RONDAMANAGER_H

@@ -14,8 +14,7 @@ TEG::TurnoFichas::~TurnoFichas(){
 }
 
 void TEG::TurnoFichas::play(){
-    this->ronda->game->gui->setTurno(this->player->getID(),this->ronda->game->getCantPlayers());
-    this->ronda->game->gui->setPlayerInfo(this->player->getName(),this->player->getCantPaises(),this->player->getCantEjercitos(),this->getFichasDisp());
+    TEG::Turno::play();
 }
 
 void TEG::TurnoFichas::paisClick(int id){
@@ -40,8 +39,7 @@ int TEG::TurnoFichas::getFichasDisp(){
 }
 
 void TEG::TurnoFichas::startTurno(){
-    this->ronda->game->gui->allEnabled(false);
-    this->ronda->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->player->getListPaises()),true);
+    this->player->playFichas(this);
 }
 
 int TEG::TurnoFichas::calcularFichas(){

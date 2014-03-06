@@ -226,9 +226,9 @@ void MainWindow::consoleLog(QString msj){
 void MainWindow::setRoundType(int type){
     QString msj;
     switch(type){
-        case 0: msj = "Ronda de Fichas";
-        case 1: msj = "Ronda de Ataques";
-        default: msj = "Esperando partida";
+        case 0: msj = "Ronda de Fichas"; break;
+        case 1: msj = "Ronda de Ataques"; break;
+        default: msj = "Esperando partida"; break;
     }
     ui->stageLabel->setText(msj);
 }
@@ -295,6 +295,7 @@ void MainWindow::setUpConnections(){
 
    // Botones
    connect(ui->playerInfo->cellWidget(3,1), SIGNAL(clicked()),this,SLOT(verObjetivo()));
+   connect(ui->nextButton, SIGNAL(clicked()),this,SLOT(buttonNext()));
 
    // Animacion Timer
    connect(this->animacion.timer, SIGNAL(timeout()), this, SLOT(dadosUpdate()));
@@ -306,6 +307,10 @@ void MainWindow::setUpConnections(){
 void MainWindow::buttonSelect(int id){
     this->consoleLog("Presionaste el boton ID: " + QString::number(id));
     this->game->pressed(id);
+}
+
+void MainWindow::buttonNext(){
+    this->game->ronda->btnNext();
 }
 
 void MainWindow::verObjetivo(){

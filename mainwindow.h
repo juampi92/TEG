@@ -85,9 +85,10 @@ private:
     } animacion;
 
 public slots: // Botones accesibles desde afuera
-    void buttonSelect(int id);
 
 private slots: // Botones internos
+    void buttonSelect(int id);
+    void buttonNext();
     void dadosUpdate(); // Crear animación de los dados
     void verObjetivo(); //Pop up del objetivo
     void popupCreatePlayer(); // Crea el formulario para agregar un nuevo jugador.

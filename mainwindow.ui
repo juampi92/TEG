@@ -568,14 +568,6 @@
           <string>Defensa</string>
          </property>
         </widget>
-        <zorder>label_2</zorder>
-        <zorder>label</zorder>
-        <zorder>label</zorder>
-        <zorder>label_2</zorder>
-        <zorder>dadosProgress</zorder>
-        <zorder>dados1</zorder>
-        <zorder>dados2</zorder>
-        <zorder>label</zorder>
        </widget>
        <zorder>atackFrame</zorder>
        <zorder>stageLabel</zorder>

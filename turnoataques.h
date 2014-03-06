@@ -13,7 +13,7 @@ public:
     TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr);
     ~TurnoAtaques();
 
-
+    void play();
 private:
     void startTurno();
 };

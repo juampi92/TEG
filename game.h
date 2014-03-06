@@ -47,13 +47,13 @@ public:
 
     MainWindow *gui;
     TEG::Mapa *mapa;
+    TEG::RondaManager *ronda;
 
 private:
     QList<TEG::Jugador*> *jugadores;
     TEG::Objetivo *objetivos[7];
 
     bool started = false;
-    TEG::RondaManager *ronda;
 };
 
 #endif // GAME_H

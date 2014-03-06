@@ -1,4 +1,5 @@
 #include "jugador.h"
+#include "utiles.h"
 
 TEG::Jugador::Jugador(TEG::Game *game, QString nom, int id, QString color){
     this->game = game;
@@ -45,4 +46,14 @@ void TEG::Jugador::setObjetivo(TEG::Objetivo *obj){
 
 void TEG::Jugador::addPais(TEG::Pais *pais){
     this->paises->append(pais);
+}
+
+void TEG::Jugador::playFichas(TEG::Turno *turno){
+    this->game->gui->allEnabled(false);
+    this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises()),true);
+}
+
+void TEG::Jugador::playAtaque(TEG::Turno *turno){
+    this->game->gui->allEnabled(false);
+    this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises()),true);
 }
