@@ -10,9 +10,12 @@ namespace TEG{
 class TEG::TurnoAtaques : public TEG::Turno
 {
 public:
-    TurnoAtaques();
+    TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr);
+    ~TurnoAtaques();
 
-    int getInt();
+
+private:
+    void startTurno();
 };
 
 #endif // TURNOATAQUES_H

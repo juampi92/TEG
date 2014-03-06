@@ -126,6 +126,10 @@ TEG::Mapa::Mapa(TEG::Game *game){
 TEG::Mapa::~Mapa(){
 }
 
+TEG::Pais *TEG::Mapa::getPais(int id){
+    return this->paises[id];
+}
+
 QList<TEG::Pais*> * TEG::Mapa::getLimitrofes(int id){
     return this->relaciones[id];
 }

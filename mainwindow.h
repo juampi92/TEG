@@ -49,10 +49,16 @@ public:
 
     void consoleLog(QString msj);
 
+    void setRoundType(int type);
+
     void addPlayer(QString nom, QString color, int IA, int id);
     void setTurno(int id , int cant);
+    void nextButton(QString txt="");
 
-    void setPlayerInfo(QString nom, int paises, int ej, int ej_rest);
+    void setAtaque(QString atac, QString def);
+    void clearAtaque();
+
+    void setPlayerInfo(QString nom="", int paises=-1, int ej=-1, int ej_rest=-1);
 
     QStringList getColores();
 private:

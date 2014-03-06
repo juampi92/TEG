@@ -19,7 +19,8 @@ public:
     Mapa(TEG::Game *game);
     ~Mapa();
 
-    QList<Pais *> *getLimitrofes(int id);
+    TEG::Pais *getPais(int id);
+    QList<TEG::Pais *> *getLimitrofes(int id);
 
     TEG::Continente* continentes[6];
     TEG::Pais* paises[50];

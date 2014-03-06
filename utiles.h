@@ -16,5 +16,6 @@ public:
     static TEG::Pais **shuffle(TEG::Pais **arr , int length);
     static TEG::Objetivo **shuffle(TEG::Objetivo **arr , int length);
     static QList<int> getRandomList(int cant, int max);
+    static QList<int> * toIntList(QList<TEG::Pais*> *paises);
 };
 #endif // UTILES_H

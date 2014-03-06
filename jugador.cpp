@@ -23,6 +23,22 @@ QString TEG::Jugador::getName(){
     return this->nom;
 }
 
+QList<TEG::Pais*> *TEG::Jugador::getListPaises(){
+    return this->paises;
+}
+
+int TEG::Jugador::getCantPaises(){
+    return this->paises->size();
+}
+
+int TEG::Jugador::getCantEjercitos(){
+    int cont = 0;
+    QList<TEG::Pais*>::iterator i;
+    for ( i = this->paises->begin() ; i != this->paises->end() ; i++ )
+        cont += (*i)->getEjercitos();
+    return cont;
+}
+
 void TEG::Jugador::setObjetivo(TEG::Objetivo *obj){
     this->objetivo = obj;
 }

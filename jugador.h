@@ -20,6 +20,9 @@ public:
     int getID();
     QString getColor();
     QString getName();
+    QList<TEG::Pais*> *getListPaises();
+    int getCantPaises();
+    int getCantEjercitos();
 
     void setObjetivo(TEG::Objetivo *obj);
     void addPais(TEG::Pais *pais);

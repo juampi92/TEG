@@ -22,6 +22,7 @@ public:
     int addEjercitos(int cant);
     int removeEjercitos(int cant);
 
+    void setEjercitos(int cant);
     void setOwner(TEG::Jugador *player);
 
     int getContinenteID() const;

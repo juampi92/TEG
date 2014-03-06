@@ -31,9 +31,9 @@ TEG::Game::Game(MainWindow *gui){
     this->addPlayer("Diego","black",0);
     this->addPlayer("Compu","blue",1);
 
-    this->gui->setTurno(0,this->getCantPlayers());
-    this->gui->setPlayerInfo("Juampi",5,5,0);
-
+    //this->gui->setTurno(0,this->getCantPlayers());
+    //this->gui->setPlayerInfo("Juampi",5,5,0);
+    //this->gui->setAtaque("Argentina","Chile");
 }
 
 TEG::Game::~Game(){
@@ -107,9 +107,23 @@ QList<TEG::Pais*> * TEG::Game::getBorderEnemies(int id_pais, TEG::Jugador * play
     return retorno;
 }
 
+bool TEG::Game::hasStarted() const{
+    return this->started;
+}
+
 void TEG::Game::start(){
     this->shufflePaises();
     this->shuffleObjetivos();
+    // Objetivos y paises repartidos.
+
+    this->started = true;
+
+    this->ronda = new TEG::RondaManager(this,this->jugadores);
+    this->ronda->start();
+}
+
+void TEG::Game::end(){
+
 }
 
 void TEG::Game::shufflePaises(){
@@ -124,6 +138,7 @@ void TEG::Game::shufflePaises(){
         if ( i == this->jugadores->end() ) i = this->jugadores->begin();
         aux = shuffled[j];
         aux->setOwner((*i));
+        aux->setEjercitos(1);
         (*i)->addPais(aux);
         this->gui->setPaisColor(aux->getID(),(*i)->getColor());
         this->gui->setPaisFichas(aux->getID(),1);
@@ -142,22 +157,9 @@ void TEG::Game::shuffleObjetivos(){
     }
 }
 
-QList<int> * TEG::Game::toIntList(QList<TEG::Pais *> *paises){
-    QList<int> * retorno = new QList<int>();
-
-    QList<TEG::Pais*>::iterator i;
-    for ( i = paises->begin() ; i != paises->end() ; i++ ){
-        retorno->append((*i)->getID());
-    }
-
-    return retorno;
-}
-
-
 
 
 void TEG::Game::pressed(int id){
-    this->gui->allEnabled(false);
-    this->gui->setPaisesEnabled(this->toIntList(this->getBorderEnemies(id,this->jugadores->at(0))),true);
-    this->gui->setPaisSelected(id,true);
+    if ( this->hasStarted() )
+        this->ronda->btnClick(id);
 }

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     utiles.cpp \
     turno.cpp \
     turnofichas.cpp \
-    turnoataques.cpp
+    turnoataques.cpp \
+    rondamanager.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     utiles.h \
     turno.h \
     turnofichas.h \
-    turnoataques.h
+    turnoataques.h \
+    rondamanager.h
 
 FORMS    += mainwindow.ui
 

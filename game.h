@@ -5,13 +5,14 @@
 #include "mapa.h"
 #include "jugador.h"
 #include "objetivo.h"
-#include "turno.h"
+#include "rondamanager.h"
 
 namespace TEG {
     class Mapa;
     class Game;
     class Jugador;
     class Objetivo;
+    class RondaManager;
 }
 class MainWindow;
 
@@ -32,7 +33,11 @@ public:
     QList<TEG::Pais*> * getBorderFriends(int id_pais, TEG::Jugador * player);
     QList<TEG::Pais*> * getBorderEnemies(int id_pais, TEG::Jugador * player);
 
+    bool hasStarted() const;
+
     void start();
+    void end();
+
     void shufflePaises();
     void shuffleObjetivos();
 
@@ -41,15 +46,14 @@ public:
     void pressed(int id);
 
     MainWindow *gui;
-private:
-
-    QList<int> * toIntList(QList<TEG::Pais*> *paises);
-
     TEG::Mapa *mapa;
+
+private:
     QList<TEG::Jugador*> *jugadores;
     TEG::Objetivo *objetivos[7];
 
-    TEG::Turno *turno;
+    bool started = false;
+    TEG::RondaManager *ronda;
 };
 
 #endif // GAME_H

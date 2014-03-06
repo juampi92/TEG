@@ -44,3 +44,14 @@ QList<int> TEG::Utiles::getRandomList(int cant, int max){
         out.append(TEG::Utiles::getRandom(max)+1); // +1 evita los 0. Usado para los dados
     return out;
 }
+
+QList<int> * TEG::Utiles::toIntList(QList<TEG::Pais*> *paises){
+    QList<int> * retorno = new QList<int>();
+
+    QList<TEG::Pais*>::iterator i;
+    for ( i = paises->begin() ; i != paises->end() ; i++ ){
+        retorno->append((*i)->getID());
+    }
+
+    return retorno;
+}

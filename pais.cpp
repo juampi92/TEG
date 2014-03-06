@@ -28,6 +28,10 @@ int TEG::Pais::removeEjercitos(int cant){
     return this->ejercitos;
 }
 
+void TEG::Pais::setEjercitos(int cant){
+    this->ejercitos = cant;
+}
+
 void TEG::Pais::setOwner(TEG::Jugador *player){
     this->owner = player;
 }

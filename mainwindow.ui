@@ -66,7 +66,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>5</x>
+          <x>0</x>
           <y>5</y>
           <width>800</width>
           <height>600</height>
@@ -173,7 +173,7 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>810</x>
+         <x>805</x>
          <y>5</y>
          <width>200</width>
          <height>700</height>
@@ -446,118 +446,144 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="Line" name="line_2">
-        <property name="geometry">
-         <rect>
-          <x>15</x>
-          <y>540</y>
-          <width>170</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-       <widget class="QGraphicsView" name="dados1">
+       <widget class="QGroupBox" name="atackFrame">
         <property name="geometry">
          <rect>
           <x>5</x>
-          <y>420</y>
-          <width>180</width>
-          <height>44</height>
-         </rect>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QGraphicsView" name="dados2">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>490</y>
-          <width>180</width>
-          <height>44</height>
-         </rect>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>470</y>
-          <width>150</width>
-          <height>13</height>
+          <y>370</y>
+          <width>190</width>
+          <height>180</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
          </font>
         </property>
-        <property name="text">
-         <string>Defensa</string>
+        <property name="title">
+         <string/>
         </property>
-       </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>400</y>
-          <width>150</width>
-          <height>13</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>MS Shell Dlg 2</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Ataque</string>
-        </property>
-       </widget>
-       <widget class="QProgressBar" name="dadosProgress">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>395</y>
-          <width>50</width>
-          <height>15</height>
-         </rect>
-        </property>
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="textVisible">
+        <property name="flat">
          <bool>false</bool>
         </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>150</width>
+           <height>13</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>MS Shell Dlg 2</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ataque</string>
+         </property>
+        </widget>
+        <widget class="QProgressBar" name="dadosProgress">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>135</x>
+           <y>25</y>
+           <width>50</width>
+           <height>15</height>
+          </rect>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QGraphicsView" name="dados1">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>170</width>
+           <height>44</height>
+          </rect>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QGraphicsView" name="dados2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>120</y>
+           <width>170</width>
+           <height>44</height>
+          </rect>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>100</y>
+           <width>150</width>
+           <height>13</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>MS Shell Dlg 2</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Defensa</string>
+         </property>
+        </widget>
+        <zorder>label_2</zorder>
+        <zorder>label</zorder>
+        <zorder>label</zorder>
+        <zorder>label_2</zorder>
+        <zorder>dadosProgress</zorder>
+        <zorder>dados1</zorder>
+        <zorder>dados2</zorder>
+        <zorder>label</zorder>
        </widget>
+       <zorder>atackFrame</zorder>
+       <zorder>stageLabel</zorder>
+       <zorder>playersTable</zorder>
+       <zorder>line</zorder>
+       <zorder>nextButton</zorder>
+       <zorder>playerInfo</zorder>
+       <zorder>playerCurrent</zorder>
       </widget>
      </widget>
     </item>

@@ -76,7 +76,10 @@ MainWindow::MainWindow(QGraphicsView *pres) :
 
     this->game = new TEG::Game(this);
 
-    QThread::sleep(3);
+    this->allEnabled(false);
+
+    // Para que se note el cartel! se hace sleep 3
+    QThread::sleep(1);
     pres->close();
     this->show();
 }
@@ -112,11 +115,12 @@ void MainWindow::setPaisesFichas(QList<int> *paises, int cant){
 void MainWindow::setPaisEnabled(QAbstractButton * btn, bool enabled){
     btn->setEnabled(enabled);
     QString color;
-    if ( !enabled )
-        color = "grey";
-    else
-        color = "white";
-    btn->setStyleSheet("color:"+color+";background-color:"+this->game->getPaisColor(this->paises->id(btn))+";");
+        if ( !enabled ) color = "grey";
+        else color = "white";
+    QString owner = "";
+        if ( this->game->hasStarted() ) owner = "background-color:"+this->game->getPaisColor(this->paises->id(btn))+";";
+
+    btn->setStyleSheet("color:"+color+";"+owner);
         // Hay que volver a setear el color, porque lo pierde
 }
 
@@ -219,6 +223,16 @@ void MainWindow::consoleLog(QString msj){
     qDebug() << "MSJ: " <<  msj;
 }
 
+void MainWindow::setRoundType(int type){
+    QString msj;
+    switch(type){
+        case 0: msj = "Ronda de Fichas";
+        case 1: msj = "Ronda de Ataques";
+        default: msj = "Esperando partida";
+    }
+    ui->stageLabel->setText(msj);
+}
+
 void MainWindow::addPlayer(QString nom, QString color, int IA, int id){
     this->consoleLog("Jugador creado: " + nom + ". Color: "+color +". IA:"+QString::number(IA));
 
@@ -240,11 +254,27 @@ void MainWindow::setTurno(int id, int cant){
     }
 }
 
+void MainWindow::nextButton(QString txt){
+    if ( txt == "")
+        ui->nextButton->setEnabled(false);
+    else {
+        ui->nextButton->setEnabled(true);
+        ui->nextButton->setText(txt);
+    }
+}
+
+void MainWindow::setAtaque(QString atac, QString def){
+    ui->atackFrame->setTitle(atac + " vs " + def);
+}
+void MainWindow::clearAtaque(){
+    ui->atackFrame->setTitle("");
+}
+
 void MainWindow::setPlayerInfo(QString nom, int paises, int ej, int ej_rest){
-    this->ui->playerCurrent->setText(nom);
-    this->ui->playerInfo->setItem(0,1,new QTableWidgetItem(QString::number(paises)));
-    this->ui->playerInfo->setItem(1,1,new QTableWidgetItem(QString::number(ej)));
-    this->ui->playerInfo->setItem(2,1,new QTableWidgetItem(QString::number(ej_rest)));
+    if ( nom != "" ) this->ui->playerCurrent->setText(nom);
+    if ( paises > -1 ) this->ui->playerInfo->setItem(0,1,new QTableWidgetItem(QString::number(paises)));
+    if ( ej > -1 ) this->ui->playerInfo->setItem(1,1,new QTableWidgetItem(QString::number(ej)));
+    if ( ej_rest > -1 ) this->ui->playerInfo->setItem(2,1,new QTableWidgetItem(QString::number(ej_rest)));
     this->ui->playerInfo->setEnabled(true);
 }
 
@@ -331,13 +361,6 @@ void MainWindow::start(){
         return;
     }
 
-    QList<int> at;
-    QList<int> def;
-    at.append(6); at.append(6); at.append(3);
-    def.append(6); def.append(3);
-
-    this->setDados(at,def);
-
-    //this->game->start();
+    this->game->start();
 
 }
