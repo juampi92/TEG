@@ -6,6 +6,8 @@
 #include <QList>
 #include <QMainWindow>
 #include <QButtonGroup>
+#include <QListWidget>
+#include <QTimer>
 
 #include "game.h"
 
@@ -22,7 +24,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QGraphicsView *pres);
     ~MainWindow();
 
     void addPais(int id, QString nom, int x, int y);
@@ -39,7 +41,9 @@ public:
 
     void setPaisSelected(int id, bool selected);
 
-    void setDados(QList<int> atac, QList<int> def);
+    void setDados(QList<int> atac, QList<int> def, bool animacion=true);
+    void agregarDado(QGraphicsScene *widget, int dado , int pos );
+    void vaciarDados( QGraphicsScene * widget );
 
     void allEnabled(bool enabled);
 
@@ -59,13 +63,26 @@ private:
 
     void setUpConnections();
 
+    void drawDados(QList<int> atac, QList<int> def);
+
     // Files cache
-    QIcon *pcIco;
+    QIcon *img_pc;
+    QImage *img_dados;
+    QPixmap *arr_dados[6]; // Arreglo de punteros a imagen
+    //
+    struct AnimacionData {
+        int loops = 5;
+        int loop;
+        QList<int> atac;
+        QList<int> def;
+        QTimer *timer;
+    } animacion;
 
 public slots: // Botones accesibles desde afuera
     void buttonSelect(int id);
 
 private slots: // Botones internos
+    void dadosUpdate(); // Crear animación de los dados
     void verObjetivo(); //Pop up del objetivo
     void popupCreatePlayer(); // Crea el formulario para agregar un nuevo jugador.
     void start(); // Comienza el juego.

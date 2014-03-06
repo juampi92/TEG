@@ -15,5 +15,6 @@ public:
     static int getRandom(int max);
     static TEG::Pais **shuffle(TEG::Pais **arr , int length);
     static TEG::Objetivo **shuffle(TEG::Objetivo **arr , int length);
+    static QList<int> getRandomList(int cant, int max);
 };
 #endif // UTILES_H

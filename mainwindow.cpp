@@ -6,14 +6,19 @@
 #include <Qcursor>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QThread>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+#include "utiles.h"
+
+MainWindow::MainWindow(QGraphicsView *pres) :
+    QMainWindow(0),
     ui(new Ui::MainWindow)
 {
+    qDebug() << "Cargado!";
+
     ui->setupUi(this);
 
     QFile styleSheet("styles.qss");  //path where the file is stored
@@ -50,15 +55,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->playerInfo->setDisabled(true);
 
 
+    // Dados:
+    this->img_dados = new QImage("dados.png");
+    for ( int i = 0 ; i < 6 ; i++ ) {
+        QPixmap *tmp_img = new QPixmap();
+        tmp_img->convertFromImage(this->img_dados->copy(i*42,0,42,42));
+        this->arr_dados[i] = tmp_img;
+    }
+    ui->dados1->setScene(new QGraphicsScene());
+    ui->dados1->show();
+    ui->dados2->setScene(new QGraphicsScene());
+    ui->dados2->show();
+    ui->dadosProgress->setVisible(false);
 
-
-
+    this->animacion.timer = new QTimer(this);
 
     setUpConnections();
 
-    this->pcIco = new QIcon("pc.png");
+    this->img_pc = new QIcon("pc.png");
 
     this->game = new TEG::Game(this);
+
+    QThread::sleep(3);
+    pres->close();
+    this->show();
 }
 
 MainWindow::~MainWindow()
@@ -130,20 +150,68 @@ void MainWindow::setPaisSelected(int id, bool selected){
     btn->setEnabled(true);
 }
 
-void MainWindow::setDados(QList<int> atac, QList<int> def){
-    QString out = "Ataque: ";
+void MainWindow::setDados(QList<int> atac, QList<int> def , bool animacion){
+    if ( animacion ) {
+        this->animacion.loop = this->animacion.loops;
+        this->animacion.atac = atac;
+        this->animacion.def = def;
+        this->ui->dadosProgress->setVisible(true);
+        this->ui->dadosProgress->setValue(0);
 
+        this->dadosUpdate();
+        this->animacion.timer->start(350);
+    } else {
+        this->drawDados(atac,def);
+    }
+
+    if ( this->animacion.loop > 0 ){
+        float op = this->animacion.loops - this->animacion.loop;
+        op = ( op / this->animacion.loops) * 100;
+        this->ui->dadosProgress->setValue(op);
+        this->animacion.loop--;
+    } else {
+
+        // Animacion finalizada! Activar lo que sea necesario!
+        this->animacion.timer->stop();
+        this->ui->dadosProgress->setValue(100);
+        this->drawDados(this->animacion.atac,this->animacion.def);
+        this->ui->dadosProgress->setVisible(false);
+        this->ui->dadosProgress->setValue(0);
+    }
+}
+
+void MainWindow::drawDados(QList<int> atac, QList<int> def){
+
+    //qDebug() << "Digujar dados! " << atac << " - " << def;
+
+    QGraphicsScene *scene = ui->dados1->scene();
     QList<int>::iterator i;
-    for (i = atac.begin(); i != atac.end(); ++i){
-        out.append(QString::number(*i));
-        out.append(", ");
+    int it = 0;
+
+    this->vaciarDados(scene);
+    for (i = atac.begin(); i != atac.end(); i++){
+        this->agregarDado(scene,(*i),it);
+        it++;
     }
-    out.append(" Defensa: ");
-    for (i = def.begin(); i != def.end(); ++i){
-        out.append(QString::number(*i));
-        out.append(", ");
+
+    scene = ui->dados2->scene();
+    it = 0;
+
+    this->vaciarDados(scene);
+    for (i = def.begin(); i != def.end(); i++){
+        this->agregarDado(scene,(*i),it);
+        it++;
     }
-    this->consoleLog(out);
+}
+
+
+void MainWindow::agregarDado( QGraphicsScene * widget, int dado , int pos ){
+    QGraphicsPixmapItem *itm = new QGraphicsPixmapItem(*this->arr_dados[dado-1]);
+    itm->setX(pos * 42);
+    widget->addItem(itm);
+}
+void MainWindow::vaciarDados( QGraphicsScene * widget ){
+    widget->clear();
 }
 
 void MainWindow::consoleLog(QString msj){
@@ -159,7 +227,7 @@ void MainWindow::addPlayer(QString nom, QString color, int IA, int id){
 
     ui->playersTable->setItem(id,0,colColor);
     ui->playersTable->setItem(id,1,new QTableWidgetItem(nom));
-    if ( IA > 0 ) ui->playersTable->setItem(id,2,new QTableWidgetItem(*this->pcIco,QString::number(IA)));
+    if ( IA > 0 ) ui->playersTable->setItem(id,2,new QTableWidgetItem(*this->img_pc,QString::number(IA)));
     ui->playersTable->setItem(id,3,new QTableWidgetItem());
 }
 
@@ -198,6 +266,9 @@ void MainWindow::setUpConnections(){
    // Botones
    connect(ui->playerInfo->cellWidget(3,1), SIGNAL(clicked()),this,SLOT(verObjetivo()));
 
+   // Animacion Timer
+   connect(this->animacion.timer, SIGNAL(timeout()), this, SLOT(dadosUpdate()));
+
    // Paises
    connect(this->paises, SIGNAL(buttonClicked(int)), this, SLOT(buttonSelect(int)));
 }
@@ -209,6 +280,10 @@ void MainWindow::buttonSelect(int id){
 
 void MainWindow::verObjetivo(){
     QMessageBox::information(this, tr("Objetivo"),tr("Conquistar bla bla bla"));
+}
+
+void MainWindow::dadosUpdate(){
+    this->setDados(TEG::Utiles::getRandomList(this->animacion.atac.size(),6),TEG::Utiles::getRandomList(this->animacion.def.size(),6),false);
 }
 
 void MainWindow::popupCreatePlayer(){
@@ -256,5 +331,13 @@ void MainWindow::start(){
         return;
     }
 
-    this->game->start();
+    QList<int> at;
+    QList<int> def;
+    at.append(6); at.append(6); at.append(3);
+    def.append(6); def.append(3);
+
+    this->setDados(at,def);
+
+    //this->game->start();
+
 }

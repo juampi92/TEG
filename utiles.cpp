@@ -37,3 +37,10 @@ TEG::Objetivo **TEG::Utiles::shuffle(TEG::Objetivo **arr , int length){
     }
     return aux;
 }
+
+QList<int> TEG::Utiles::getRandomList(int cant, int max){
+    QList<int> out;
+    for ( int i = 0 ; i < cant ; i++ )
+        out.append(TEG::Utiles::getRandom(max)+1); // +1 evita los 0. Usado para los dados
+    return out;
+}
