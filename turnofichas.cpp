@@ -1,7 +1,7 @@
 #include "turnofichas.h"
 #include "utiles.h"
 
-TEG::TurnoFichas::TurnoFichas(RondaManager *ronda, Jugador *plyr, int spec) : TEG::Turno(ronda,plyr){
+TEG::TurnoFichas::TurnoFichas(TEG::RondaManager *ronda, TEG::Jugador *plyr, int spec) : TEG::Turno(ronda,plyr){
     this->startTurno();
     if ( spec > 0 )
         this->fichasDisp = spec;

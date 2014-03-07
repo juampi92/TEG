@@ -27,6 +27,7 @@ public:
     int getCantEjercitos();
 
     void setObjetivo(TEG::Objetivo *obj);
+    QString showObjetivo() const;
     void addPais(TEG::Pais *pais);
     void removePais(TEG::Pais *pais);
 

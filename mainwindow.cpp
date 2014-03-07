@@ -314,7 +314,7 @@ void MainWindow::buttonNext(){
 }
 
 void MainWindow::verObjetivo(){
-    QMessageBox::information(this, tr("Objetivo"),tr("Conquistar bla bla bla"));
+    QMessageBox::information(this, tr("Objetivo"),game->ronda->showObjetivo());
 }
 
 void MainWindow::dadosUpdate(){

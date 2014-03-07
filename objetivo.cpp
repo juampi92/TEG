@@ -9,6 +9,10 @@ TEG::Objetivo::Objetivo(int id, QString descr, int *obj){
 TEG::Objetivo::~Objetivo(){
 }
 
+QString TEG::Objetivo::showObjetivo() const{
+    return this->descr;
+}
+
 bool TEG::Objetivo::cumplio(const QList<TEG::Pais*> *paises){
     return false;
 }

@@ -23,7 +23,7 @@ public:
     void nextTurno();
     void nextRonda();
     void playTurno();
-
+    QString showObjetivo() const;
     void setType(int t);
 
     void btnClick(int id);

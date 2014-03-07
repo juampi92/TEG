@@ -44,6 +44,10 @@ void TEG::Jugador::setObjetivo(TEG::Objetivo *obj){
     this->objetivo = obj;
 }
 
+QString TEG::Jugador::showObjetivo() const{
+    return this->objetivo->showObjetivo();
+}
+
 void TEG::Jugador::addPais(TEG::Pais *pais){
     this->paises->append(pais);
 }

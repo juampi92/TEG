@@ -3,7 +3,7 @@
 #include "turnoataques.h"
 #include "turnofichas.h"
 
-TEG::RondaManager::RondaManager(Game *juego, QList<Jugador *> *players){
+TEG::RondaManager::RondaManager(TEG::Game *juego, QList<TEG::Jugador *> *players){
     this->game = juego;
     this->players = players;
     this->actual = this->inicio = players->begin();
@@ -68,6 +68,11 @@ void TEG::RondaManager::playTurno(){
         this->turno = new TEG::TurnoAtaques(this,*this->actual);
 
     this->turno->play();
+}
+
+QString TEG::RondaManager::showObjetivo() const{
+    TEG::Jugador * buf = (*actual);
+    return buf->showObjetivo();
 }
 
 void TEG::RondaManager::setType(int t){

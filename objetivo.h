@@ -17,6 +17,7 @@ public:
     Objetivo(int id, QString descr, int *obj);
     ~Objetivo();
 
+    QString showObjetivo() const;
     bool cumplio(const QList<TEG::Pais*> *paises);
     float factor(const QList<TEG::Pais*> *paises);
     int restantes(const QList<TEG::Pais*> *paises);
