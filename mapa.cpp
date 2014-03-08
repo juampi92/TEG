@@ -10,6 +10,13 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->continentes[4] = new TEG::Continente("Africa",4);
     this->continentes[5] = new TEG::Continente("Oceania",5);
 
+    this->paises_por_continente[0] = 10;
+    this->paises_por_continente[1] = 6;
+    this->paises_por_continente[2] = 9;
+    this->paises_por_continente[3] = 6;
+    this->paises_por_continente[4] = 15;
+    this->paises_por_continente[5] = 4;
+
     this->paises[0] = new TEG::Pais(0,"Alaska",0);				this->game->gui->addPais(0,"Alaska",8,209);
     this->paises[1] = new TEG::Pais(1,"Yukon",0);				this->game->gui->addPais(1,"Yukon",58,178);
     this->paises[2] = new TEG::Pais(2,"Canada",0);				this->game->gui->addPais(2,"Canada",109,108);

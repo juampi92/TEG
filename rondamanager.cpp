@@ -55,7 +55,7 @@ void TEG::RondaManager::desplazarOrden(){
 }
 
 void TEG::RondaManager::playTurno(){
-    if ( this->turno != 0 ) delete this->turno;
+    if ( this->turno != NULL ) delete this->turno;
 
     if ( this->type == 0 ){
         int fichas = 0;
@@ -81,7 +81,7 @@ void TEG::RondaManager::setType(int t){
 }
 
 void TEG::RondaManager::btnClick(int id){
-    //if ( this->turno == NULL ) return;
+    if ( this->turno == NULL ) return;
     // Valida si es un Bot. Si es un bot, no podés intervenir en el tablero.
     this->turno->paisClick(id);
 }

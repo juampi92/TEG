@@ -21,14 +21,15 @@ public:
     virtual bool next();
 
     virtual void paisClick(int id);
+    virtual void btnAttack();
 
     void end();
 
+    TEG::Jugador *player;
 protected:
     virtual void startTurno();
 
     TEG::RondaManager *ronda;
-    TEG::Jugador *player;
 };
 
 #endif // TURNO_H

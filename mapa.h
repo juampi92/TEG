@@ -25,6 +25,8 @@ public:
     TEG::Continente* continentes[6];
     TEG::Pais* paises[50];
     QList<TEG::Pais*>* relaciones[50];
+    int paises_por_continente[6];
+
 private:
     QList<TEG::Pais*>* getPaisesList(int,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1);
     TEG::Game *game;

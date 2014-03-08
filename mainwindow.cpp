@@ -263,6 +263,17 @@ void MainWindow::nextButton(QString txt){
     }
 }
 
+void MainWindow::setAttackButton(bool enabled,bool attack){
+    if ( attack ) ui->btnAttack->setText("Atacar!");
+    else ui->btnAttack->setText("Reagrupar");
+    this->setAttackButton(enabled);
+}
+
+void MainWindow::setAttackButton(bool enabled){
+    ui->btnAttack->setEnabled(enabled);
+}
+
+
 void MainWindow::setAtaque(QString atac, QString def){
     ui->atackFrame->setTitle(atac + " vs " + def);
 }
@@ -296,6 +307,7 @@ void MainWindow::setUpConnections(){
    // Botones
    connect(ui->playerInfo->cellWidget(3,1), SIGNAL(clicked()),this,SLOT(verObjetivo()));
    connect(ui->nextButton, SIGNAL(clicked()),this,SLOT(buttonNext()));
+   connect(ui->btnAttack, SIGNAL(clicked()),this,SLOT(btnAttack()));
 
    // Animacion Timer
    connect(this->animacion.timer, SIGNAL(timeout()), this, SLOT(dadosUpdate()));
@@ -311,6 +323,10 @@ void MainWindow::buttonSelect(int id){
 
 void MainWindow::buttonNext(){
     this->game->ronda->btnNext();
+}
+
+void MainWindow::btnAttack(){
+    this->game->ronda->turno->btnAttack();
 }
 
 void MainWindow::verObjetivo(){

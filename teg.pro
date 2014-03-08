@@ -21,7 +21,12 @@ SOURCES += main.cpp\
     turno.cpp \
     turnofichas.cpp \
     turnoataques.cpp \
-    rondamanager.cpp
+    rondamanager.cpp \
+    inteligenciaartificial.cpp \
+    heuristicas/heuristicaataque.cpp \
+    heuristicas/heuristica.cpp \
+    heuristicas/heuristicadefensa.cpp \
+    heuristicas/heuristicamix.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -34,7 +39,12 @@ HEADERS  += mainwindow.h \
     turno.h \
     turnofichas.h \
     turnoataques.h \
-    rondamanager.h
+    rondamanager.h \
+    inteligenciaartificial.h \
+    heuristicas/heuristicaataque.h \
+    heuristicas/heuristica.h \
+    heuristicas/heuristicadefensa.h \
+    heuristicas/heuristicamix.h
 
 FORMS    += mainwindow.ui
 

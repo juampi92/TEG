@@ -1,5 +1,6 @@
 #include "game.h"
 #include "utiles.h"
+#include "inteligenciaartificial.h"
 
 #include "turnoataques.h"
 #include "turnofichas.h"
@@ -29,7 +30,7 @@ TEG::Game::Game(MainWindow *gui){
     // Creación automática de jugadores. Propósitos de Test
     this->addPlayer("Juan","red",0);
     this->addPlayer("Diego","black",0);
-    this->addPlayer("Compu","blue",1);
+    this->addPlayer("Compu","blue",0);
 
     //this->gui->setTurno(0,this->getCantPlayers());
     //this->gui->setPlayerInfo("Juampi",5,5,0);
@@ -73,38 +74,10 @@ void TEG::Game::addPlayer(QString nom, QString color, int IA){
         this->jugadores->append(new TEG::Jugador(this,nom,id,color));
     } else {
         // Agregar IA, pero esto es para test.
-        this->jugadores->append(new TEG::Jugador(this,nom,id,color));
+        this->jugadores->append(new TEG::InteligenciaArtificial(this,nom,id,color,IA));
     }
 
     this->gui->addPlayer(nom,color,IA,id);
-}
-
-QList<TEG::Pais*> * TEG::Game::getBorderFriends(int id_pais, TEG::Jugador * player){
-    QList<TEG::Pais*> * lim = this->mapa->getLimitrofes(id_pais);
-    QList<TEG::Pais*> * retorno = new QList<TEG::Pais*>();
-
-    QList<TEG::Pais*>::iterator i;
-    for ( i = lim->begin() ; i != lim->end() ; i++ ){
-        if ( (*i)->getOwner()->getID() == player->getID() ) {
-            retorno->append((*i));
-            this->gui->setPaisFichas((*i)->getID(),2);
-        }
-    }
-
-    return retorno;
-}
-
-QList<TEG::Pais*> * TEG::Game::getBorderEnemies(int id_pais, TEG::Jugador * player){
-    QList<TEG::Pais*> * lim = this->mapa->getLimitrofes(id_pais);
-    QList<TEG::Pais*> * retorno = new QList<TEG::Pais*>();
-
-    QList<TEG::Pais*>::iterator i;
-    for ( i = lim->begin() ; i != lim->end() ; i++ ){
-        if ( (*i)->getOwner()->getID() != player->getID() )
-            retorno->append((*i));
-    }
-
-    return retorno;
 }
 
 bool TEG::Game::hasStarted() const{

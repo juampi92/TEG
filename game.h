@@ -30,9 +30,6 @@ public:
 
     void addPlayer(QString nom, QString color, int IA);
 
-    QList<TEG::Pais*> * getBorderFriends(int id_pais, TEG::Jugador * player);
-    QList<TEG::Pais*> * getBorderEnemies(int id_pais, TEG::Jugador * player);
-
     bool hasStarted() const;
 
     void start();

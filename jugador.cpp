@@ -40,6 +40,20 @@ int TEG::Jugador::getCantEjercitos(){
     return cont;
 }
 
+QList<TEG::Pais*> * TEG::Jugador::getLimitrofes(int id, bool friends){
+    QList<TEG::Pais*> * lim = this->game->mapa->getLimitrofes(id);
+    QList<TEG::Pais*> * retorno = new QList<TEG::Pais*>();
+
+    QList<TEG::Pais*>::iterator i;
+
+    for ( i = lim->begin() ; i != lim->end() ; i++ )
+        if ( (friends && ((*i)->getOwner()->getID() == this->getID() ))
+             || (!friends && ((*i)->getOwner()->getID() != this->getID())))
+            retorno->append((*i));
+
+    return retorno;
+}
+
 void TEG::Jugador::setObjetivo(TEG::Objetivo *obj){
     this->objetivo = obj;
 }

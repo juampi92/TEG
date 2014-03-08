@@ -318,14 +318,14 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>50</x>
+          <x>10</x>
           <y>230</y>
-          <width>100</width>
+          <width>85</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
-         <string>Next Button</string>
+         <string>Siguiente</string>
         </property>
        </widget>
        <widget class="QTableWidget" name="playerInfo">
@@ -569,6 +569,25 @@
          </property>
         </widget>
        </widget>
+       <widget class="QPushButton" name="btnAttack">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>105</x>
+          <y>230</y>
+          <width>85</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Atacar!</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
        <zorder>atackFrame</zorder>
        <zorder>stageLabel</zorder>
        <zorder>playersTable</zorder>
@@ -576,6 +595,7 @@
        <zorder>nextButton</zorder>
        <zorder>playerInfo</zorder>
        <zorder>playerCurrent</zorder>
+       <zorder>btnAttack</zorder>
       </widget>
      </widget>
     </item>

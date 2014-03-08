@@ -25,14 +25,15 @@ public:
     QList<TEG::Pais*> *getListPaises();
     int getCantPaises();
     int getCantEjercitos();
+    QList<TEG::Pais*> *getLimitrofes(int id, bool friends);
 
     void setObjetivo(TEG::Objetivo *obj);
     QString showObjetivo() const;
     void addPais(TEG::Pais *pais);
     void removePais(TEG::Pais *pais);
 
-    void playFichas(TEG::Turno *turno);
-    void playAtaque(TEG::Turno *turno);
+    virtual void playFichas(TEG::Turno *turno);
+    virtual void playAtaque(TEG::Turno *turno);
 
 protected:
     TEG::Game *game;

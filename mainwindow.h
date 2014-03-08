@@ -30,7 +30,6 @@ public:
     void addPais(int id, QString nom, int x, int y);
 
     void setPaisColor(int id, QString color);
-    //void setPaisesColor(QList<int> *paises, QString color);
 
     void setPaisFichas(int id, int cant);
     void setPaisesFichas(QList<int> *paises, int cant);
@@ -55,6 +54,8 @@ public:
     void setTurno(int id , int cant);
     void nextButton(QString txt="");
 
+    void setAttackButton(bool enabled,bool attack);
+    void setAttackButton(bool enabled);
     void setAtaque(QString atac, QString def);
     void clearAtaque();
 
@@ -89,6 +90,7 @@ public slots: // Botones accesibles desde afuera
 private slots: // Botones internos
     void buttonSelect(int id);
     void buttonNext();
+    void btnAttack();
     void dadosUpdate(); // Crear animación de los dados
     void verObjetivo(); //Pop up del objetivo
     void popupCreatePlayer(); // Crea el formulario para agregar un nuevo jugador.

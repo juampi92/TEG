@@ -30,14 +30,13 @@ public:
     void btnNext();
 
     TEG::Game *game;
+    TEG::Turno *turno;
 private:
     int type;
     int special;
     QList<TEG::Jugador*> *players;
     QList<TEG::Jugador*>::iterator actual;
     QList<TEG::Jugador*>::iterator inicio;
-
-    TEG::Turno *turno;
 
     void desplazarOrden();
 };

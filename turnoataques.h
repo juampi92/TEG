@@ -14,8 +14,20 @@ public:
     ~TurnoAtaques();
 
     void play();
+    bool next();
+    void paisClick(int id);
+
+    void btnAttack();
 private:
+
     void startTurno();
+    void selectOrigen(int id, bool friends);
+    void selectDestino(int id);
+
+    bool reagrupe;
+    TEG::Pais* origen;
+    TEG::Pais* destino;
+
 };
 
 #endif // TURNOATAQUES_H
