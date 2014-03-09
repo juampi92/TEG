@@ -2,6 +2,9 @@
 #define TURNOATAQUES_H
 
 #include "turno.h"
+#include "../acciones/accion.h"
+#include "../acciones/accionataque.h"
+#include "../acciones/accionreagrupe.h"
 
 namespace TEG{
     class TurnoAtaques;
@@ -18,6 +21,8 @@ public:
     void paisClick(int id);
 
     void btnAttack();
+
+    void endDadosAnimacion();
 private:
 
     void startTurno();
@@ -27,6 +32,11 @@ private:
     bool reagrupe;
     TEG::Pais* origen;
     TEG::Pais* destino;
+
+
+    TEG::Accion *currentAction;
+    QList<TEG::AccionAtaque*> *ataques;
+    QList<TEG::AccionReagrupe*> *reagrupes;
 
 };
 

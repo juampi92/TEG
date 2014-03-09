@@ -8,6 +8,7 @@
 #include <QButtonGroup>
 #include <QListWidget>
 #include <QTimer>
+#include <QString>
 
 #include "game.h"
 
@@ -41,8 +42,7 @@ public:
     void setPaisSelected(int id, bool selected);
 
     void setDados(QList<int> atac, QList<int> def, bool animacion=true);
-    void agregarDado(QGraphicsScene *widget, int dado , int pos );
-    void vaciarDados( QGraphicsScene * widget );
+    void vaciarDados();
 
     void allEnabled(bool enabled);
 
@@ -62,6 +62,8 @@ public:
     void setPlayerInfo(QString nom="", int paises=-1, int ej=-1, int ej_rest=-1);
 
     QStringList getColores();
+
+    int popUpFichas(int type, QString ori, QString dest, int min, int max);
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *board;
@@ -70,7 +72,9 @@ private:
 
     void setUpConnections();
 
+    void vaciarDados( QGraphicsScene * widget );
     void drawDados(QList<int> atac, QList<int> def);
+    void agregarDado(QGraphicsScene *widget, int dado , int pos );
 
     // Files cache
     QIcon *img_pc;

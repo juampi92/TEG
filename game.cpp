@@ -2,8 +2,8 @@
 #include "utiles.h"
 #include "inteligenciaartificial.h"
 
-#include "turnoataques.h"
-#include "turnofichas.h"
+#include "turnos/turnoataques.h"
+#include "turnos/turnofichas.h"
 
 TEG::Game::Game(MainWindow *gui){
     this->gui = gui;

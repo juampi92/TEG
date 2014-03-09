@@ -5,12 +5,14 @@
 #include "pais.h"
 #include "objetivo.h"
 #include "game.h"
-#include "turno.h"
+#include "turnos/turno.h"
+#include "acciones/accion.h"
 
 namespace TEG{
     class Jugador;
     class Game;
     class Turno;
+    class Accion;
 }
 
 class TEG::Jugador
@@ -20,9 +22,10 @@ public:
     ~Jugador();
 
     int getID();
+    virtual int getIA();
     QString getColor();
     QString getName();
-    QList<TEG::Pais*> *getListPaises();
+    QList<TEG::Pais*> *getListPaises(bool hasFichas = false);
     int getCantPaises();
     int getCantEjercitos();
     QList<TEG::Pais*> *getLimitrofes(int id, bool friends);
@@ -34,6 +37,8 @@ public:
 
     virtual void playFichas(TEG::Turno *turno);
     virtual void playAtaque(TEG::Turno *turno);
+    virtual int playReagrupeCant(TEG::Accion *acc, int max);
+    virtual int playConquistaCant(TEG::Accion *acc, int max);
 
 protected:
     TEG::Game *game;

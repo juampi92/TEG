@@ -174,13 +174,14 @@ void MainWindow::setDados(QList<int> atac, QList<int> def , bool animacion){
         this->ui->dadosProgress->setValue(op);
         this->animacion.loop--;
     } else {
-
-        // Animacion finalizada! Activar lo que sea necesario!
         this->animacion.timer->stop();
         this->ui->dadosProgress->setValue(100);
         this->drawDados(this->animacion.atac,this->animacion.def);
         this->ui->dadosProgress->setVisible(false);
         this->ui->dadosProgress->setValue(0);
+
+        // Animacion finalizada! Activar lo que sea necesario!
+        this->game->ronda->turno->endDadosAnimacion();
     }
 }
 
@@ -214,7 +215,12 @@ void MainWindow::agregarDado( QGraphicsScene * widget, int dado , int pos ){
     itm->setX(pos * 42);
     widget->addItem(itm);
 }
-void MainWindow::vaciarDados( QGraphicsScene * widget ){
+
+void MainWindow::vaciarDados(){
+    this->vaciarDados(ui->dados1->scene());
+    this->vaciarDados(ui->dados2->scene());
+}
+void MainWindow::vaciarDados( QGraphicsScene * widget ){ // private
     widget->clear();
 }
 
@@ -293,6 +299,19 @@ QStringList MainWindow::getColores(){
     QStringList colores;
     colores << tr("red") << tr("black") << tr("blue") << tr("green") << tr("yellow") << tr("purple");
     return this->game->getColores(colores);
+}
+
+int MainWindow::popUpFichas(int type, QString ori, QString dest, int min, int max){
+    int val;
+    bool ok;
+    QString tipo; if ( type == 1 ) tipo = "Pais conquistado!"; else tipo = "Reagrupar";
+
+    val = QInputDialog::getInt(this,tipo,"Fichas a pasar:",max,min,max,1,&ok);
+
+    if ( !ok && type == 1 ) val = min; // Paso el mínimo posible
+    else if ( !ok && type == 2 ) val = 0; // No paso ninguna ficha.
+
+    return val;
 }
 
 // --------------------------------------

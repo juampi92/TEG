@@ -24,12 +24,13 @@ int TEG::Pais::addEjercitos(int cant){
 }
 
 int TEG::Pais::removeEjercitos(int cant){
-    this->ejercitos -= cant;
+    this->ejercitos = this->ejercitos - cant;
     return this->ejercitos;
 }
 
-void TEG::Pais::setEjercitos(int cant){
+int TEG::Pais::setEjercitos(int cant){
     this->ejercitos = cant;
+    return this->ejercitos;
 }
 
 void TEG::Pais::setOwner(TEG::Jugador *player){

@@ -16,6 +16,8 @@ int TEG::Jugador::getID(){
     return this->id;
 }
 
+int TEG::Jugador::getIA(){ return 0;}
+
 QString TEG::Jugador::getColor(){
     return this->color;
 }
@@ -24,8 +26,15 @@ QString TEG::Jugador::getName(){
     return this->nom;
 }
 
-QList<TEG::Pais*> *TEG::Jugador::getListPaises(){
-    return this->paises;
+QList<TEG::Pais*> *TEG::Jugador::getListPaises(bool hasFichas){
+    if ( ! hasFichas )
+        return this->paises;
+    else {
+        QList<TEG::Pais*> * out = new QList<TEG::Pais*>();
+        for ( QList<TEG::Pais*>::iterator i = this->paises->begin() ; i != this->paises->end() ; i++ )
+            if ( (*i)->getEjercitos() > 1 ) out->append((*i));
+        return out;
+    }
 }
 
 int TEG::Jugador::getCantPaises(){
@@ -41,6 +50,7 @@ int TEG::Jugador::getCantEjercitos(){
 }
 
 QList<TEG::Pais*> * TEG::Jugador::getLimitrofes(int id, bool friends){
+    // Devuelve un listado de los paises amigos (o enemigos) limitrofes al seleccionado.
     QList<TEG::Pais*> * lim = this->game->mapa->getLimitrofes(id);
     QList<TEG::Pais*> * retorno = new QList<TEG::Pais*>();
 
@@ -66,6 +76,10 @@ void TEG::Jugador::addPais(TEG::Pais *pais){
     this->paises->append(pais);
 }
 
+void TEG::Jugador::removePais(TEG::Pais *pais){
+    this->paises->removeOne(pais);
+}
+
 void TEG::Jugador::playFichas(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
     this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises()),true);
@@ -73,5 +87,12 @@ void TEG::Jugador::playFichas(TEG::Turno *turno){
 
 void TEG::Jugador::playAtaque(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
-    this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises()),true);
+    this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises(true)),true);
+}
+
+int TEG::Jugador::playReagrupeCant(TEG::Accion *acc, int max){
+    return this->game->gui->popUpFichas(2,acc->getOrigen()->getName(),acc->getDestino()->getName(),1,max);
+}
+int TEG::Jugador::playConquistaCant(TEG::Accion *acc, int max){
+    return this->game->gui->popUpFichas(1,acc->getOrigen()->getName(),acc->getDestino()->getName(),1,max);
 }

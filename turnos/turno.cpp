@@ -25,3 +25,4 @@ void TEG::Turno::paisClick(int id){}
 void TEG::Turno::btnAttack(){}
 void TEG::Turno::startTurno(){} // Sobre escrita por los hijos
 bool TEG::Turno::next(){return true;}
+void TEG::Turno::endDadosAnimacion(){}

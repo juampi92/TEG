@@ -10,6 +10,11 @@ TEG::InteligenciaArtificial::InteligenciaArtificial(Game *game, QString nom, int
         case 2: this->heuristica = new TEG::HeuristicaDefensa(); break;
         case 3: this->heuristica = new TEG::HeuristicaMix(); break;
     }
+    this->IA_type = IA;
+}
+
+int TEG::InteligenciaArtificial::getIA(){
+    return this->IA_type;
 }
 
 void TEG::InteligenciaArtificial::playFichas(TEG::Turno *turno){

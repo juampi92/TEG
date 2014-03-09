@@ -1,7 +1,7 @@
 #include "rondamanager.h"
 
-#include "turnoataques.h"
-#include "turnofichas.h"
+#include "turnos/turnoataques.h"
+#include "turnos/turnofichas.h"
 
 TEG::RondaManager::RondaManager(TEG::Game *juego, QList<TEG::Jugador *> *players){
     this->game = juego;

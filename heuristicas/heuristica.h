@@ -1,7 +1,7 @@
 #ifndef HEURISTICA_H
 #define HEURISTICA_H
 
-#include "../turno.h"
+#include "../turnos/turno.h"
 
 namespace TEG{
     class Heuristica;

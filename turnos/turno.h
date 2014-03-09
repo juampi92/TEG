@@ -23,6 +23,8 @@ public:
     virtual void paisClick(int id);
     virtual void btnAttack();
 
+    virtual void endDadosAnimacion();
+
     void end();
 
     TEG::Jugador *player;

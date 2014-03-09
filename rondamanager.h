@@ -3,7 +3,7 @@
 
 #include "game.h"
 #include "jugador.h"
-#include "turno.h"
+#include "turnos/turno.h"
 
 namespace TEG{
     class RondaManager;
