@@ -50,7 +50,7 @@ private:
     QList<TEG::Jugador*> *jugadores;
     TEG::Objetivo *objetivos[7];
 
-    bool started = false;
+    bool started;
 };
 
 #endif // GAME_H

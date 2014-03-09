@@ -14,12 +14,12 @@ TEG::TurnoAtaques::TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr) : 
 }
 
 TEG::TurnoAtaques::~TurnoAtaques(){
-    QList<TEG::AccionAtaque*>::iterator i = this->ataques->begin();
-    QList<TEG::AccionReagrupe*>::iterator j = this->reagrupes->begin();
+    QList<TEG::AccionAtaque*>::iterator i;
+    QList<TEG::AccionReagrupe*>::iterator j;
 
-    for ( i ; i != this->ataques->end() ; i++)
+    for ( i = this->ataques->begin() ; i != this->ataques->end() ; i++)
         delete (*i);
-    for ( j ; j != this->reagrupes->end() ; j++)
+    for ( j = this->reagrupes->begin() ; j != this->reagrupes->end() ; j++)
         delete (*j);
 
     this->ataques->clear();

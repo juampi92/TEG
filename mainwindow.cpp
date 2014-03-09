@@ -69,6 +69,7 @@ MainWindow::MainWindow(QGraphicsView *pres) :
     ui->dadosProgress->setVisible(false);
 
     this->animacion.timer = new QTimer(this);
+    this->animacion.loops = 5;
 
     setUpConnections();
 
@@ -306,7 +307,7 @@ int MainWindow::popUpFichas(int type, QString ori, QString dest, int min, int ma
     bool ok;
     QString tipo; if ( type == 1 ) tipo = "Pais conquistado!"; else tipo = "Reagrupar";
 
-    val = QInputDialog::getInt(this,tipo,"Fichas a pasar:",max,min,max,1,&ok);
+    val = QInputDialog::getInt(this,tipo,"Fichas a pasar: "+ori+" -> "+dest,max,min,max,1,&ok);
 
     if ( !ok && type == 1 ) val = min; // Paso el mínimo posible
     else if ( !ok && type == 2 ) val = 0; // No paso ninguna ficha.

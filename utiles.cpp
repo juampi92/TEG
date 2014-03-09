@@ -55,3 +55,14 @@ QList<int> * TEG::Utiles::toIntList(QList<TEG::Pais*> *paises){
 
     return retorno;
 }
+
+int * TEG::Utiles::integerArray(int a,int b,int c,int d,int e,int f){
+    int* arr = new int[6];
+    arr[0] = a;
+    arr[1] = b;
+    arr[2] = c;
+    arr[3] = d;
+    arr[4] = e;
+    arr[5] = f;
+    return arr;
+}

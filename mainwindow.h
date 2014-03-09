@@ -82,7 +82,7 @@ private:
     QPixmap *arr_dados[6]; // Arreglo de punteros a imagen
     //
     struct AnimacionData {
-        int loops = 5;
+        int loops;
         int loop;
         QList<int> atac;
         QList<int> def;
