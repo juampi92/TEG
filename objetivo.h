@@ -22,11 +22,12 @@ public:
     float factor(const QList<TEG::Pais*> *paises);
     int restantes(const QList<TEG::Pais*> *paises);
 
+    static int *getContArray(const QList<TEG::Pais*> *paises);
+
 private:
     int id;
     int *continentes;
     QString descr;
-    int *getContArray(const QList<TEG::Pais*> *paises);
 };
 
 #endif // OBJETIVO_H

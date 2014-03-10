@@ -7,6 +7,8 @@ TEG::Jugador::Jugador(TEG::Game *game, QString nom, int id, QString color){
     this->id = id;
     this->color = color;
     this->paises = new QList<TEG::Pais*>();
+    this->conts = new int[6];
+    this->conts = TEG::Utiles::integerArray(0,0,0,0,0,0);
 }
 
 TEG::Jugador::~Jugador(){
@@ -72,11 +74,22 @@ QString TEG::Jugador::showObjetivo() const{
     return this->objetivo->showObjetivo();
 }
 
+int * TEG::Jugador::getContArray(){
+    return this->conts;
+}
+
+bool TEG::Jugador::gano(){
+    if ( this->paises->size() >= 30 ) return true;
+    return this->objetivo->cumplio(this->paises);
+}
+
 void TEG::Jugador::addPais(TEG::Pais *pais){
+    this->conts[pais->getContinenteID()]++;
     this->paises->append(pais);
 }
 
 void TEG::Jugador::removePais(TEG::Pais *pais){
+    this->conts[pais->getContinenteID()]--;
     this->paises->removeOne(pais);
 }
 
@@ -91,8 +104,8 @@ void TEG::Jugador::playAtaque(TEG::Turno *turno){
 }
 
 int TEG::Jugador::playReagrupeCant(TEG::Accion *acc, int max){
-    return this->game->gui->popUpFichas(2,acc->getOrigen()->getName(),acc->getDestino()->getName(),1,max);
+    return this->game->gui->popUpFichas(2,1,max);
 }
 int TEG::Jugador::playConquistaCant(TEG::Accion *acc, int max){
-    return this->game->gui->popUpFichas(1,acc->getOrigen()->getName(),acc->getDestino()->getName(),1,max);
+    return this->game->gui->popUpFichas(1,1,max);
 }

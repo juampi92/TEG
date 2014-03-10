@@ -63,7 +63,9 @@ public:
 
     QStringList getColores();
 
-    int popUpFichas(int type, QString ori, QString dest, int min, int max);
+    int popUpFichas(int type, int min, int max);
+
+    void setWinner(QString nom, QString color, QString obj);
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *board;

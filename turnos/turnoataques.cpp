@@ -44,16 +44,16 @@ bool TEG::TurnoAtaques::next(){
 
 void TEG::TurnoAtaques::paisClick(int id){
     if(this->origen == NULL){
-        qDebug() << "Origen selected";
+        //qDebug() << "Origen selected";
         this->origen = this->ronda->game->mapa->getPais(id);
         this->selectOrigen(id,reagrupe);
     }
     else if ( this->origen->getID() == id && this->destino == NULL ){
-        qDebug() << "Origen des-selected";
+        //qDebug() << "Origen des-selected";
         this->origen = NULL;
         this->startTurno();
     } else if(this->destino == NULL){
-        qDebug() << "Destino selected";
+        //qDebug() << "Destino selected";
         this->destino = this->ronda->game->mapa->getPais(id);
         this->selectDestino(id);
 
@@ -61,7 +61,7 @@ void TEG::TurnoAtaques::paisClick(int id){
         this->ronda->game->gui->setAttackButton(true);
         return;
     } else if(this->destino->getID()== id){
-        qDebug() << "Destino des-selected";
+        //qDebug() << "Destino des-selected";
         this->destino = NULL;
         this->selectOrigen(this->origen->getID(),reagrupe);
     }
@@ -83,6 +83,7 @@ void TEG::TurnoAtaques::btnAttack(){
 }
 
 void TEG::TurnoAtaques::startTurno(){
+    this->origen = NULL; this->destino = NULL;
     this->player->playAtaque(this);
 }
 

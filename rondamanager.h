@@ -19,7 +19,7 @@ public:
     ~RondaManager();
 
     void start();
-    void end();
+    void end(bool winner=false);
     void nextTurno();
     void nextRonda();
     void playTurno();

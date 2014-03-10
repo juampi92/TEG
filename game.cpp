@@ -21,8 +21,8 @@ TEG::Game::Game(MainWindow *gui){
 
     // Creación automática de jugadores. Propósitos de Test
     this->addPlayer("Juan","red",0);
-    this->addPlayer("Diego","black",1);
-    this->addPlayer("Compu","blue",2);
+    this->addPlayer("Diego","black",0);
+    this->addPlayer("Compu","blue",0);
 }
 
 TEG::Game::~Game(){

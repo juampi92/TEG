@@ -20,10 +20,13 @@ public:
 private:
     void startTurno();
     int calcularFichas();
+    void createContsArray();
 
     void agregarFicha(TEG::Pais *pais);
 
     int fichasDisp;
+    int contFichas_total;
+    int * contsFichas;
 };
 
 #endif // TURNOFICHAS_H

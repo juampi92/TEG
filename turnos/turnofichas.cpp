@@ -2,11 +2,16 @@
 #include "utiles.h"
 
 TEG::TurnoFichas::TurnoFichas(TEG::RondaManager *ronda, TEG::Jugador *plyr, int spec) : TEG::Turno(ronda,plyr){
+    this->fichasDisp = 0;
+    this->contFichas_total = 0;
+
     this->startTurno();
     if ( spec > 0 )
         this->fichasDisp = spec;
-    else
+    else {
         this->fichasDisp = this->calcularFichas();
+        this->createContsArray();
+    }
 }
 
 TEG::TurnoFichas::~TurnoFichas(){
@@ -25,17 +30,26 @@ void TEG::TurnoFichas::agregarFicha(TEG::Pais *pais){
     // Validación:
     if ( pais->getOwner()->getID() != this->player->getID() || this->fichasDisp <= 0 )
         return; // No es tu país
-    // Acción:
-    this->ronda->game->gui->setPaisFichas(pais->getID(),pais->addEjercitos(+1));
-    this->fichasDisp--;
+
+    // Descontar ficha:
+    qDebug() << "Fichas del continente " << pais->getContinenteID() << ":" << this->contsFichas[pais->getContinenteID()] << " . Contador: " << this->contFichas_total;
+    if ( this->contFichas_total > 0 && this->contsFichas[pais->getContinenteID()] > 0 ){
+        this->contsFichas[pais->getContinenteID()]--;
+        this->contFichas_total--;
+    } else {
+        this->fichasDisp--;
+    }
+
+    // Gui
+    this->ronda->game->gui->setPaisFichas(pais->getID(),pais->addEjercitos(1));
 
     this->ronda->game->gui->setPlayerInfo("",-1,this->player->getCantEjercitos(),this->getFichasDisp());
 
-    if ( this->fichasDisp == 0 ) this->end();
+    if ( this->fichasDisp == 0 && this->contFichas_total == 0 ) this->end();
 }
 
 int TEG::TurnoFichas::getFichasDisp(){
-    return this->fichasDisp;
+    return this->fichasDisp + this->contFichas_total;
 }
 
 void TEG::TurnoFichas::startTurno(){
@@ -46,4 +60,16 @@ int TEG::TurnoFichas::calcularFichas(){
     int f = this->player->getCantPaises() / 2;
     if ( f < 3 ) f = 3; // Minimo.
     return f;
+}
+
+void TEG::TurnoFichas::createContsArray(){
+    int * totales = this->ronda->game->mapa->paises_por_continente;
+    int * posee = this->player->getContArray();
+    this->contsFichas = TEG::Utiles::integerArray(0,0,0,0,0,0);
+
+    int aux;
+    for ( int i = 0 ; i < 6 ; i++ )
+        if ( totales[i] == posee[i] ) { aux = totales[i]/2; contsFichas[i]=aux; contFichas_total+=aux; }
+
+    qDebug() << "Fichas de continente: " << contFichas_total;
 }

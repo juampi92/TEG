@@ -32,6 +32,9 @@ public:
 
     void setObjetivo(TEG::Objetivo *obj);
     QString showObjetivo() const;
+    int * getContArray();
+    bool gano();
+
     void addPais(TEG::Pais *pais);
     void removePais(TEG::Pais *pais);
 
@@ -47,6 +50,7 @@ protected:
     QString color;
     TEG::Objetivo *objetivo;
     QList<TEG::Pais*> *paises;
+    int * conts;
 };
 
 #endif // JUGADOR_H

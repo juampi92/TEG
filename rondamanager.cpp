@@ -12,6 +12,7 @@ TEG::RondaManager::RondaManager(TEG::Game *juego, QList<TEG::Jugador *> *players
 }
 
 TEG::RondaManager::~RondaManager(){
+    this->game->gui->nextButton("");
 }
 
 void TEG::RondaManager::start(){
@@ -19,11 +20,17 @@ void TEG::RondaManager::start(){
     this->playTurno();
 }
 
-void TEG::RondaManager::end(){
+void TEG::RondaManager::end(bool winner){
+    if ( winner )
+        this->game->gui->setWinner((*this->actual)->getName() , (*this->actual)->getColor() , (*this->actual)->showObjetivo());
 
+    delete this;
 }
 
 void TEG::RondaManager::nextTurno(){
+    // Check winner
+    if ( this->type == 1 && (*this->actual)->gano() ){ this->end(); return; }
+
     this->actual++;
     if ( this->actual == this->players->end() )
         this->actual = this->players->begin();
@@ -38,6 +45,7 @@ void TEG::RondaManager::nextRonda(){
     if ( this->special > 1 ){ // Rondas especiales
         this->special--;
     } else {
+        this->special = 0;
         int newType;
         if ( this->type == 0 ) newType = 1; else newType = 0;
         this->setType(newType);
@@ -58,10 +66,12 @@ void TEG::RondaManager::playTurno(){
     if ( this->turno != NULL ) delete this->turno;
 
     if ( this->type == 0 ){
-        int fichas = 0;
 
+        int fichas = 0;
         if ( this->special == 2 ) fichas=5;
         else if ( this->special == 1 ) fichas=3;
+
+        qDebug() << "Special: " << this->special;
 
         this->turno = new TEG::TurnoFichas(this,*this->actual,fichas);
     }else if ( this->type == 1 )

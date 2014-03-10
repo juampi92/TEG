@@ -302,17 +302,21 @@ QStringList MainWindow::getColores(){
     return this->game->getColores(colores);
 }
 
-int MainWindow::popUpFichas(int type, QString ori, QString dest, int min, int max){
+int MainWindow::popUpFichas(int type, int min, int max){
     int val;
     bool ok;
     QString tipo; if ( type == 1 ) tipo = "Pais conquistado!"; else tipo = "Reagrupar";
 
-    val = QInputDialog::getInt(this,tipo,"Fichas a pasar: "+ori+" -> "+dest,max,min,max,1,&ok);
+    val = QInputDialog::getInt(this,tipo,"Fichas a pasar:",max,min,max,1,&ok);
 
     if ( !ok && type == 1 ) val = min; // Paso el mínimo posible
     else if ( !ok && type == 2 ) val = 0; // No paso ninguna ficha.
 
     return val;
+}
+
+void MainWindow::setWinner(QString nom, QString color, QString obj){
+    QMessageBox::information(this, tr("Fin del Juego!"),"El jugador " + nom + " ganó la partida! \n Objetivo: "+obj);
 }
 
 // --------------------------------------
@@ -337,7 +341,7 @@ void MainWindow::setUpConnections(){
 }
 
 void MainWindow::buttonSelect(int id){
-    this->consoleLog("Presionaste el boton ID: " + QString::number(id));
+    //this->consoleLog("Presionaste el boton ID: " + QString::number(id));
     this->game->pressed(id);
 }
 
