@@ -7,3 +7,11 @@ TEG::Continente::Continente(QString nom, int id){
 
 TEG::Continente::~Continente(){
 }
+
+QList<TEG::Pais*> *TEG::Continente::getPaises(){
+    return this->paises;
+}
+
+void TEG::Continente::setPaises(QList<TEG::Pais*> *lista){
+    this->paises = lista;
+}

@@ -16,6 +16,9 @@ class TEG::Continente
 public:
     Continente(QString nom, int id);
     ~Continente();
+
+    QList<TEG::Pais*> *getPaises();
+    void setPaises(QList<TEG::Pais*> *lista);
 private:
     int id;
     QString nom;

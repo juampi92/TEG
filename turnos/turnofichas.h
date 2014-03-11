@@ -16,13 +16,14 @@ public:
     void play();
     void paisClick(int id);
     int getFichasDisp();
+    int *getFichasContDis();
+
+    void agregarFicha(TEG::Pais *pais);
 
 private:
     void startTurno();
     int calcularFichas();
     void createContsArray();
-
-    void agregarFicha(TEG::Pais *pais);
 
     int fichasDisp;
     int contFichas_total;

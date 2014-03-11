@@ -20,7 +20,8 @@ public:
     ~Mapa();
 
     TEG::Pais *getPais(int id);
-    QList<TEG::Pais *> *getLimitrofes(int id);
+    QList<TEG::Pais*> *getLimitrofes(int id);
+    QList<TEG::Pais*> *getPaisesContinente(int id);
 
     TEG::Continente* continentes[6];
     TEG::Pais* paises[50];

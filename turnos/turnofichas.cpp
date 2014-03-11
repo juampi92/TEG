@@ -44,11 +44,15 @@ void TEG::TurnoFichas::agregarFicha(TEG::Pais *pais){
 
     this->ronda->game->gui->setPlayerInfo("",-1,this->player->getCantEjercitos(),this->getFichasDisp());
 
-    if ( this->fichasDisp == 0 && this->contFichas_total == 0 ) this->end();
+    if ( this->getFichasDisp() == 0 ) this->end();
 }
 
 int TEG::TurnoFichas::getFichasDisp(){
     return this->fichasDisp + this->contFichas_total;
+}
+
+int * TEG::TurnoFichas::getFichasContDis(){
+    return this->contsFichas;
 }
 
 void TEG::TurnoFichas::startTurno(){

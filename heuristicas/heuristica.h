@@ -2,6 +2,8 @@
 #define HEURISTICA_H
 
 #include "../turnos/turno.h"
+#include "../turnos/turnoataques.h"
+#include "../turnos/turnofichas.h"
 
 #include "../acciones/accion.h"
 #include "../acciones/accionataque.h"
@@ -16,21 +18,20 @@ public:
     Heuristica();
     virtual ~Heuristica();
 
-    void fichas(TEG::Turno *turno);
-    void ataque(TEG::Turno *turno);
-    void reagrupe(TEG::Turno *turno);
+    void fichas(TEG::TurnoFichas *turno);
+    void ataque(TEG::TurnoAtaques *turno);
+    void reagrupe(TEG::TurnoAtaques *turno);
 
-    virtual float factorReagrupe(TEG::Turno *turno,TEG::AccionReagrupe *acc);
-    virtual float cantidadReagrupe(TEG::Turno *turno,TEG::AccionReagrupe *acc);
-    virtual float factorAtaque(TEG::Turno *turno,TEG::AccionAtaque *acc);
-    virtual float cantidadAtaque(TEG::Turno *turno,TEG::AccionAtaque *acc);
-    virtual int factorFichas(TEG::Turno *turno,TEG::Pais *pais);
+    virtual float factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
+    virtual float cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
+    virtual float factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
+    virtual float cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
+    virtual int factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais);
 
-    virtual bool next(TEG::Turno *turno);
+    virtual int next(TEG::TurnoAtaques *turno);
 protected:
-    QList<TEG::Accion*> *getAcciones(TEG::Turno *turno, bool reagrupe );
+    QList<TEG::Accion*> *getAcciones(TEG::TurnoAtaques *turno, bool reagrupe );
 
-    static bool sortingPais(const QPair<TEG::Pais*,int>& e1, const QPair<TEG::Pais*,int>& e2);
     static bool sortingAccion(const QPair<TEG::Accion*,int>& e1, const QPair<TEG::Accion*,int>& e2);
 };
 

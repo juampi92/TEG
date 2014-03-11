@@ -13,13 +13,13 @@ public:
     HeuristicaAtaque();
     ~HeuristicaAtaque();
 
-    float factorReagrupe(TEG::Turno *turno,TEG::AccionReagrupe *acc);
-    float cantidadReagrupe(TEG::Turno *turno,TEG::AccionReagrupe *acc);
-    float factorAtaque(TEG::Turno *turno,TEG::AccionAtaque *acc);
-    float cantidadAtaque(TEG::Turno *turno,TEG::AccionAtaque *acc);
-    int factorFichas(TEG::Turno *turno,TEG::Pais *pais);
+    float factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
+    float cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
+    float factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
+    float cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
+    int factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais);
 
-    bool next(TEG::Turno *turno);
+    int next(TEG::TurnoAtaques *turno);
 };
 
 #endif // HEURISTICAATAQUE_H

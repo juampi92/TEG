@@ -19,10 +19,10 @@ int TEG::InteligenciaArtificial::getIA(){
 
 void TEG::InteligenciaArtificial::playFichas(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
-    this->heuristica->fichas(turno);
+    this->heuristica->fichas( (TEG::TurnoFichas*) turno);
 }
 
 void TEG::InteligenciaArtificial::playAtaque(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
-    this->heuristica->ataque(turno);
+    this->heuristica->ataque( (TEG::TurnoAtaques*) turno);
 }
