@@ -28,6 +28,10 @@ QString TEG::Jugador::getName(){
     return this->nom;
 }
 
+QList<TEG::Pais*> *TEG::Jugador::getPaises(){
+    return this->paises;
+}
+
 QList<TEG::Pais*> *TEG::Jugador::getListPaises(bool hasFichas){
     if ( ! hasFichas )
         return this->paises;
@@ -79,7 +83,10 @@ int * TEG::Jugador::getContArray(){
 }
 
 bool TEG::Jugador::gano(){
+    qDebug() << " ==== Chequeando si ganó";
     if ( this->paises->size() >= 30 ) return true;
+
+    qDebug() << " == Factor: " << this->objetivo->factor(this->paises);
     return this->objetivo->cumplio(this->paises);
 }
 

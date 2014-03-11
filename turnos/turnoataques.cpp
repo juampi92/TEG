@@ -2,7 +2,6 @@
 #include "utiles.h"
 
 TEG::TurnoAtaques::TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr) : TEG::Turno(ronda,plyr){
-    this->startTurno();
     this->reagrupe= false;
     this->origen = NULL;
     this->destino = NULL;
@@ -28,6 +27,7 @@ TEG::TurnoAtaques::~TurnoAtaques(){
 
 void TEG::TurnoAtaques::play(){
     TEG::Turno::play();
+    this->startTurno();
 }
 
 bool TEG::TurnoAtaques::next(){

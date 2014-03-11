@@ -28,10 +28,10 @@ public:
     void end();
 
     TEG::Jugador *player;
+    TEG::RondaManager *ronda;
 protected:
     virtual void startTurno();
 
-    TEG::RondaManager *ronda;
 };
 
 #endif // TURNO_H

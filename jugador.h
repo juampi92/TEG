@@ -25,6 +25,8 @@ public:
     virtual int getIA();
     QString getColor();
     QString getName();
+
+    QList<TEG::Pais*> *getPaises();
     QList<TEG::Pais*> *getListPaises(bool hasFichas = false);
     int getCantPaises();
     int getCantEjercitos();
@@ -43,12 +45,12 @@ public:
     virtual int playReagrupeCant(TEG::Accion *acc, int max);
     virtual int playConquistaCant(TEG::Accion *acc, int max);
 
+    TEG::Objetivo *objetivo;
 protected:
     TEG::Game *game;
     QString nom;
     int id;
     QString color;
-    TEG::Objetivo *objetivo;
     QList<TEG::Pais*> *paises;
     int * conts;
 };

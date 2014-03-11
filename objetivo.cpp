@@ -15,30 +15,49 @@ QString TEG::Objetivo::showObjetivo() const{
 }
 
 bool TEG::Objetivo::cumplio(const QList<TEG::Pais*> *paises){
-    int * conts = this->getContArray(paises);
+    return this->cumplio(this->getContArray(paises));
+}
+
+bool TEG::Objetivo::cumplio(const int *conts){
     for ( int i = 0 ; i < 6 ; i++ )
         if ( this->continentes[i] > conts[i] ) return false;
     return true;
 }
 
 float TEG::Objetivo::factor(const QList<TEG::Pais*> *paises){
+    return this->factor(this->getContArray(paises));
+}
+
+float TEG::Objetivo::factor(const int *conts){
     int conqui = 0;
     int total = 0;
-    int * conts = this->getContArray(paises);
     for ( int i = 0 ; i < 6 ; i++ ){
         total += this->continentes[i];
         if ( this->continentes[i] > conts[i] ) conqui += conts[i];
         else conqui += continentes[i];
     }
-    return (conqui / total);
+    float ret = conqui;
+    return ret / total;
 }
 
 int TEG::Objetivo::restantes(const QList<TEG::Pais*> *paises){
+    return this->restantes(this->getContArray(paises));
+}
+
+int TEG::Objetivo::restantes(const int *conts){
     int resto = 0;
-    int * conts = this->getContArray(paises);
     for ( int i = 0 ; i < 6 ; i++ )
         if ( this->continentes[i] > conts[i] ) resto += (this->continentes[i]-conts[i]);
     return resto;
+}
+
+bool TEG::Objetivo::favorece(int *conts, TEG::Pais* pais){
+    if ( this->continentes[pais->getContinenteID()] <= (conts[pais->getContinenteID()]+1) ) return true;
+    return false;
+}
+
+int TEG::Objetivo::extra(int *conts, TEG::Pais* pais){
+    return ( conts[pais->getContinenteID()] - this->continentes[pais->getContinenteID()] );
 }
 
 int * TEG::Objetivo::getContArray(const QList<TEG::Pais*> *paises){

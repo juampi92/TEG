@@ -2,7 +2,7 @@
 #include "../utiles.h"
 
 TEG::AccionAtaque::AccionAtaque(TEG::Pais *origen, TEG::Pais *destino, TEG::Game *game) : TEG::Accion(origen,destino,game){
-
+    this->fichas.orig = this->fichas.dest = 0;
 }
 
 TEG::AccionAtaque::~AccionAtaque(){}
@@ -12,16 +12,20 @@ bool TEG::AccionAtaque::validar(){
         return true;
     return false;
 }
+void TEG::AccionAtaque::calcularFichas(){
+    if ( this->fichas.orig != 0 ) return;
+    // Calcular el ataque, y ganador
+    if( this->origen->getEjercitos()-1 > 3 ) this->fichas.orig = 3; else this->fichas.orig = this->origen->getEjercitos()-1;
+    if( this->destino->getEjercitos() > 3 ) this->fichas.dest = 3; else this->fichas.dest = this->destino->getEjercitos();
+}
+
 void TEG::AccionAtaque::execute(){
     this->win = false;
     // Borrar display ultimo ataque.
     this->game->gui->clearAtaque();
     this->game->gui->setAtaque(this->origen->getName() , this->destino->getName() );
 
-    // Calcular el ataque, y ganador
-    if( this->origen->getEjercitos()-1 > 3 ) this->fichas.orig = 3; else this->fichas.orig = this->origen->getEjercitos()-1;
-    if( this->destino->getEjercitos() > 3 ) this->fichas.dest = 3; else this->fichas.dest = this->destino->getEjercitos();
-
+    this->calcularFichas();
 
     QList<int> dadosOrig = TEG::Utiles::getRandomList( this->fichas.orig , 6 );
     QList<int> dadosDest = TEG::Utiles::getRandomList( this->fichas.dest , 6 );
@@ -44,7 +48,7 @@ void TEG::AccionAtaque::execute(){
 bool TEG::AccionAtaque::endAnimacion(){
     // Ejecutar las bajas de ejercitos:
 
-    qDebug() << "Perdidas de: Origen: " << this->fichas.orig << " - Destino: " << this->fichas.dest;
+    //qDebug() << "Perdidas de: Origen: " << this->fichas.orig << " - Destino: " << this->fichas.dest;
 
     this->game->gui->setPaisFichas(this->origen->getID() , this->origen->removeEjercitos(this->fichas.orig) );
     this->game->gui->setPaisFichas(this->destino->getID() , this->destino->removeEjercitos(this->fichas.dest) );
@@ -65,7 +69,10 @@ bool TEG::AccionAtaque::endAnimacion(){
 }
 
 
-float TEG::AccionAtaque::prob(){return 0;}
+float TEG::AccionAtaque::prob(){
+    this->calcularFichas();
+    return 0;
+}
 
 int TEG::AccionAtaque::getMax(){
     int ejer = this->origen->getEjercitos();

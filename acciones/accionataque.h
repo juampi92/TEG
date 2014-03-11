@@ -14,6 +14,7 @@ public:
     ~AccionAtaque();
 
     bool validar();
+    void calcularFichas();
     void execute();
 
     float prob();

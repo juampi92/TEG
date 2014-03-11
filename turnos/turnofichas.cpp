@@ -5,7 +5,6 @@ TEG::TurnoFichas::TurnoFichas(TEG::RondaManager *ronda, TEG::Jugador *plyr, int 
     this->fichasDisp = 0;
     this->contFichas_total = 0;
 
-    this->startTurno();
     if ( spec > 0 )
         this->fichasDisp = spec;
     else {
@@ -20,6 +19,7 @@ TEG::TurnoFichas::~TurnoFichas(){
 
 void TEG::TurnoFichas::play(){
     TEG::Turno::play();
+    this->startTurno();
 }
 
 void TEG::TurnoFichas::paisClick(int id){
@@ -28,17 +28,16 @@ void TEG::TurnoFichas::paisClick(int id){
 
 void TEG::TurnoFichas::agregarFicha(TEG::Pais *pais){
     // Validación:
-    if ( pais->getOwner()->getID() != this->player->getID() || this->fichasDisp <= 0 )
+    if ( pais->getOwner()->getID() != this->player->getID() )
         return; // No es tu país
 
     // Descontar ficha:
-    qDebug() << "Fichas del continente " << pais->getContinenteID() << ":" << this->contsFichas[pais->getContinenteID()] << " . Contador: " << this->contFichas_total;
     if ( this->contFichas_total > 0 && this->contsFichas[pais->getContinenteID()] > 0 ){
         this->contsFichas[pais->getContinenteID()]--;
         this->contFichas_total--;
-    } else {
+    } else if ( this->fichasDisp > 0 ) {
         this->fichasDisp--;
-    }
+    } else return;
 
     // Gui
     this->ronda->game->gui->setPaisFichas(pais->getID(),pais->addEjercitos(1));

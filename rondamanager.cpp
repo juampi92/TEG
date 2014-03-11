@@ -13,6 +13,7 @@ TEG::RondaManager::RondaManager(TEG::Game *juego, QList<TEG::Jugador *> *players
 
 TEG::RondaManager::~RondaManager(){
     this->game->gui->nextButton("");
+    this->game->end();
 }
 
 void TEG::RondaManager::start(){
@@ -29,7 +30,7 @@ void TEG::RondaManager::end(bool winner){
 
 void TEG::RondaManager::nextTurno(){
     // Check winner
-    if ( this->type == 1 && (*this->actual)->gano() ){ this->end(); return; }
+    if ( this->type == 1 && (*this->actual)->gano() ){ this->end(true); return; }
 
     this->actual++;
     if ( this->actual == this->players->end() )
@@ -71,8 +72,6 @@ void TEG::RondaManager::playTurno(){
         if ( this->special == 2 ) fichas=5;
         else if ( this->special == 1 ) fichas=3;
 
-        qDebug() << "Special: " << this->special;
-
         this->turno = new TEG::TurnoFichas(this,*this->actual,fichas);
     }else if ( this->type == 1 )
         this->turno = new TEG::TurnoAtaques(this,*this->actual);
@@ -81,8 +80,7 @@ void TEG::RondaManager::playTurno(){
 }
 
 QString TEG::RondaManager::showObjetivo() const{
-    TEG::Jugador * buf = (*actual);
-    return buf->showObjetivo();
+    return (*actual)->showObjetivo();
 }
 
 void TEG::RondaManager::setType(int t){

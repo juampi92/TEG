@@ -84,7 +84,7 @@ void TEG::Game::start(){
 }
 
 void TEG::Game::end(){
-
+    this->started = false;
 }
 
 void TEG::Game::shufflePaises(){
