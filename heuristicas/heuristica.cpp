@@ -60,20 +60,21 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
         tabla->append(par);
     }
 
-    // Ordenar las acciones con qSort y TEG::Heuristica::sortingAcciones
-    //qSort(tabla->begin(),tabla->end(), TEG::Heuristica::sortingAccion);
     int max = -1000;
-    TEG::AccionAtaque* accion= tabla->first().first;
-    for( QList<QPair<TEG::AccionAtaque*,int> >::iterator it = tabla->begin() ; it != tabla->end() ; it++ ){
-        if((*it).second > max){
-            max = (*it).second;
-            accion = (*it).first;
-        } else
+    TEG::AccionAtaque* accion;
+    if(tabla->size() > 0){
+        accion = tabla->first().first;
+        for( QList<QPair<TEG::AccionAtaque*,int> >::iterator it = tabla->begin() ; it != tabla->end() ; it++ ){
+            if((*it).second > max){
+                max = (*it).second;
+                accion = (*it).first;
+            } else
             qDebug() << " --- "  << (*it).second << " > " << max;
+        }
     }
     // Pregunto si quiero pasar (next()). Si no:
     qDebug() << "Accion maxima: " << accion->getOrigen()->getName() << " vs " << accion->getDestino()->getName() << " con un factor de " << max;
-
+    qDebug() << " el next da >>>>>>> " << this->next(turno,accion->getOrigen()) << "y el max: " << max;
     if ( this->next(turno,accion->getOrigen()) > max )
         turno->end(); // NEXT!
     else{
@@ -133,7 +134,7 @@ QList<TEG::Accion*> *TEG::Heuristica::getAcciones(TEG::TurnoAtaques *turno, bool
 // No tocar.
 float TEG::Heuristica::factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
 float TEG::Heuristica::cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
-float TEG::Heuristica::factorAtaque(TEG::TurnoAtaques *turno, TEG::AccionAtaque *acc){return 0;}
+int TEG::Heuristica::factorAtaque(TEG::TurnoAtaques *turno, TEG::AccionAtaque *acc){return 0;}
 float TEG::Heuristica::cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){return 0;}
 int TEG::Heuristica::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais){return 0;}
 int TEG::Heuristica::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){return 1;}

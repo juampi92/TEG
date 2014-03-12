@@ -15,9 +15,9 @@ public:
 
     float factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
     float cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
-    float factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
+    int factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
     float cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
-    int factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais);
+    int factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais);
 
     int next(TEG::TurnoAtaques *turno, TEG::Pais * pais);
 };
