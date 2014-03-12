@@ -15,7 +15,7 @@ float TEG::HeuristicaAtaque::cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::Acci
     return acc->getMax();
 }
 
-float TEG::HeuristicaAtaque::factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){
+int TEG::HeuristicaAtaque::factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){
     int hype=1;
     bool importante = turno->player->objetivo->favorece(turno->player->getContArray(),acc->getDestino());
     if( importante)
@@ -26,14 +26,14 @@ float TEG::HeuristicaAtaque::factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAt
     float ratio = ((float)cantidadEnemigosAdy/cantidadLmitrofes)*10;
     hype *= ratio;
 
-    return 10;
+    return hype;
 }
 
 float TEG::HeuristicaAtaque::cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){
     return acc->getMax();
 }
 
-int TEG::HeuristicaAtaque::factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais){
+int TEG::HeuristicaAtaque::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais){
     //Compara sobre esos paises. Si es un continente, los paises son los paises del continente. Si no, son todos
     //  los paises que posee
     int valor = 1;
@@ -75,9 +75,6 @@ int TEG::HeuristicaAtaque::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){
     int fichasAmigas = pais->getEjercitos();
     for(QList<TEG::Pais*>::iterator it= enemigos->begin(); it != enemigos->end(); it++)
         fichasEnemigas += (*it)->getEjercitos()- 1;
-
-    if((fichasEnemigas/2 - fichasAmigas) > 0)
-        return 1;
-    else
-        return danger;
+    danger =(fichasEnemigas/2 - fichasAmigas);
+    return danger;
 }
