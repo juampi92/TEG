@@ -19,7 +19,7 @@ public:
     float cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
     int factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais);
 
-    int next(TEG::TurnoAtaques *turno);
+    int next(TEG::TurnoAtaques *turno, TEG::Pais * pais);
 };
 
 #endif // HEURISTICAATAQUE_H

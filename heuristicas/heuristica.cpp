@@ -68,16 +68,15 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
         if((*it).second > max){
             max = (*it).second;
             accion = (*it).first;
-        }
+        } else
+            qDebug() << " --- "  << (*it).second << " > " << max;
     }
     // Pregunto si quiero pasar (next()). Si no:
+    qDebug() << "Accion maxima: " << accion->getOrigen()->getName() << " vs " << accion->getDestino()->getName() << " con un factor de " << max;
 
-//    if ( this->next(turno,accion->getOrigen()) > max )
-    if (0 > max )
-
+    if ( this->next(turno,accion->getOrigen()) > max )
         turno->end(); // NEXT!
     else{
-        qDebug() << "entra " ;
         accion->execute();
     }
 
@@ -131,70 +130,13 @@ QList<TEG::Accion*> *TEG::Heuristica::getAcciones(TEG::TurnoAtaques *turno, bool
     return lista;
 }
 
+// No tocar.
 float TEG::Heuristica::factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
 float TEG::Heuristica::cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
-
-float TEG::Heuristica::factorAtaque(TEG::TurnoAtaques *turno, TEG::AccionAtaque *acc){
-    int hype=1;
-    bool importante = turno->player->objetivo->favorece(turno->player->getContArray(),acc->getDestino());
-    if( importante)
-        hype += 10;
-    QList<TEG::Pais*> * enemigos = turno->player->getLimitrofes((*acc).getOrigen()->getID(), false);
-    int cantidadLmitrofes = turno->ronda->game->mapa->getCantLimitrofes((*acc).getOrigen()->getID());
-    int cantidadEnemigosAdy = enemigos->size();
-    float ratio = ((float)cantidadEnemigosAdy/cantidadLmitrofes)*10;
-    hype *= ratio;
-
-    return 10;
-}
-
+float TEG::Heuristica::factorAtaque(TEG::TurnoAtaques *turno, TEG::AccionAtaque *acc){return 0;}
 float TEG::Heuristica::cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){return 0;}
-
-int TEG::Heuristica::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais){
-    int valor = 1;
-    QList<TEG::Pais*> * enemigos = turno->player->getLimitrofes(pais->getID(), false);
-    int cantidadLmitrofes = turno->ronda->game->mapa->getCantLimitrofes(pais->getID());
-    int cantidadEnemigosAdy = enemigos->size();
-    float ratio = ((float)cantidadEnemigosAdy/cantidadLmitrofes)*10;
-    int fichasEnemigas=0;
-    int fichasAmigas = pais->getEjercitos();
-    for(QList<TEG::Pais*>::iterator it= enemigos->begin(); it != enemigos->end(); it++)
-        fichasEnemigas += (*it)->getEjercitos()- 1;
-    if(ratio == 0.0)
-        return 0;
-    else{
-        int a = turno->player->objetivo->extra(turno->player->getContArray(),pais);
-        qDebug() << " a: " << a ;
-        if(a < 0)
-            return ratio*(-a);
-        else
-            if(a=0){
-                valor= (fichasEnemigas/2 - fichasAmigas);
-                if(valor <= 0)
-                    return 1;
-                else
-                    return valor;
-            }
-            else
-                return 1;
-        }
-}
-
-int TEG::Heuristica::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){
-    int danger = 0;
-    QList<TEG::Pais*> * enemigos = turno->player->getLimitrofes(pais->getID(), false);
-    int cantidadLmitrofes = turno->ronda->game->mapa->getCantLimitrofes(pais->getID());
-    int cantidadEnemigosAdy = enemigos->size();
-    int fichasEnemigas=0;
-    int fichasAmigas = pais->getEjercitos();
-    for(QList<TEG::Pais*>::iterator it= enemigos->begin(); it != enemigos->end(); it++)
-        fichasEnemigas += (*it)->getEjercitos()- 1;
-
-    if((fichasEnemigas/2 - fichasAmigas) > 0)
-        return 1;
-    else
-        return danger;
-}
+int TEG::Heuristica::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais){return 0;}
+int TEG::Heuristica::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){return 1;}
 
 bool TEG::Heuristica::sortingAccion(const QPair<TEG::Accion*,int>& e1, const QPair<TEG::Accion*,int>& e2) { // sorting by QHash Value
     return ( e1.second < e2.second );
