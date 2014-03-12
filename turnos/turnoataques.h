@@ -23,6 +23,8 @@ public:
     void btnAttack();
 
     void endDadosAnimacion();
+
+    void setAccion(TEG::Accion * accion);
 private:
 
     void startTurno();

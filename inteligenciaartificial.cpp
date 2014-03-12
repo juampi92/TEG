@@ -26,3 +26,11 @@ void TEG::InteligenciaArtificial::playAtaque(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
     this->heuristica->ataque( (TEG::TurnoAtaques*) turno);
 }
+
+int TEG::InteligenciaArtificial::playReagrupeCant(TEG::Turno * turno, TEG::Accion *acc){
+    return this->heuristica->cantidadReagrupe((TEG::TurnoAtaques*) turno,(TEG::AccionReagrupe*) acc);
+}
+
+int TEG::InteligenciaArtificial::playConquistaCant(TEG::Turno * turno, TEG::Accion *acc){
+    return this->heuristica->cantidadAtaque((TEG::TurnoAtaques*) turno,(TEG::AccionAtaque*) acc);
+}

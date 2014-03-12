@@ -17,6 +17,8 @@ public:
 
     void playFichas(TEG::Turno *turno);
     void playAtaque(TEG::Turno *turno);
+    int playReagrupeCant(TEG::Turno * turno, TEG::Accion *acc);
+    int playConquistaCant(TEG::Turno * turno, TEG::Accion *acc);
 
 private:
     TEG::Heuristica *heuristica;

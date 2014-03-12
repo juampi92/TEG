@@ -48,14 +48,14 @@ void TEG::AccionAtaque::execute(){
 bool TEG::AccionAtaque::endAnimacion(){
     // Ejecutar las bajas de ejercitos:
 
-    //qDebug() << "Perdidas de: Origen: " << this->fichas.orig << " - Destino: " << this->fichas.dest;
+    qDebug() << "Perdidas de: Origen: " << this->fichas.orig << " - Destino: " << this->fichas.dest;
 
     this->game->gui->setPaisFichas(this->origen->getID() , this->origen->removeEjercitos(this->fichas.orig) );
     this->game->gui->setPaisFichas(this->destino->getID() , this->destino->removeEjercitos(this->fichas.dest) );
 
     // Si ganó: Preguntar cuántas pasar
     if ( win ) {
-        int cant = this->origen->getOwner()->playConquistaCant(this,this->getMax());
+        int cant = this->origen->getOwner()->playConquistaCant(this->game->ronda->turno,this);
         this->destino->getOwner()->removePais(this->destino);
         this->destino->setOwner(this->origen->getOwner());
         this->origen->getOwner()->addPais(this->destino);

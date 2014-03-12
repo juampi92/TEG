@@ -73,11 +73,13 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
         }
     }
     // Pregunto si quiero pasar (next()). Si no:
-    qDebug() << "Accion maxima: " << accion->getOrigen()->getName() << " vs " << accion->getDestino()->getName() << " con un factor de " << max;
-    qDebug() << " el next da >>>>>>> " << this->next(turno,accion->getOrigen()) << "y el max: " << max;
-    if ( this->next(turno,accion->getOrigen()) > max )
+    //qDebug() << "Accion maxima: " << accion->getOrigen()->getName() << " vs " << accion->getDestino()->getName() << " con un factor de " << max;
+    //qDebug() << " el next da >>>>>>> " << this->next(turno,accion->getOrigen()) << "y el max: " << max;
+    if ( this->next(turno,accion->getOrigen()) > max ){
+        qDebug() << "Next! max: " << max << ". next: " << this->next(turno,accion->getOrigen());
         turno->end(); // NEXT!
-    else{
+    }else{
+        turno->setAccion(accion);
         accion->execute();
     }
 
@@ -106,8 +108,10 @@ void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
     TEG::AccionReagrupe* accion = tabla->first().first;
     if ( this->next(turno,accion->getOrigen()) > tabla->first().second )
         turno->end(); // NEXT!
-    else // ejecutar la primera acción
+    else {// ejecutar la primera acción
+        turno->setAccion(accion);
         accion->execute();
+    }
 
     // Borrar todo
     tabla->clear(); // vacío la tabla (no tan necesario)

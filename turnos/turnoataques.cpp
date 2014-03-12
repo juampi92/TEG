@@ -71,12 +71,12 @@ void TEG::TurnoAtaques::paisClick(int id){
 void TEG::TurnoAtaques::btnAttack(){
     if ( this->reagrupe ){
         TEG::AccionReagrupe *acc = new TEG::AccionReagrupe(this->origen,this->destino,this->ronda->game,this);
-        this->currentAction = acc;
+        this->setAccion(acc);
         if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
         this->currentAction->execute();
         this->reagrupes->append(acc);
     } else {
-        this->currentAction = new TEG::AccionAtaque(this->origen,this->destino,this->ronda->game);
+        this->setAccion(new TEG::AccionAtaque(this->origen,this->destino,this->ronda->game));
         if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
         this->currentAction->execute();
     }
@@ -111,4 +111,8 @@ void TEG::TurnoAtaques::endDadosAnimacion(){
     this->ronda->game->gui->setPlayerInfo("",this->player->getCantPaises(),this->player->getCantEjercitos());
 
     this->ataques->append( (TEG::AccionAtaque*) this->currentAction);
+}
+
+void TEG::TurnoAtaques::setAccion(TEG::Accion * accion){
+    this->currentAction = accion;
 }

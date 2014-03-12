@@ -12,7 +12,7 @@ bool TEG::AccionReagrupe::validar(){
 }
 void TEG::AccionReagrupe::execute(){
     // Preguntar cuántas pasar
-    int cant = this->origen->getOwner()->playReagrupeCant(this,this->getMax());
+    int cant = this->origen->getOwner()->playReagrupeCant(this->turno,this);
     qDebug() << "Cantidad: " << cant << ". Max: " << this->getMax();
     // Actualizar paises involucrados.
     this->game->gui->setPaisFichas(this->origen->getID() , this->origen->removeEjercitos(cant) );

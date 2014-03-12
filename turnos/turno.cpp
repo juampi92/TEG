@@ -21,6 +21,7 @@ void TEG::Turno::play(){
     this->ronda->game->gui->setTurno(this->player->getID(),this->ronda->game->getCantPlayers());
     this->ronda->game->gui->setPlayerInfo(this->player->getName(),this->player->getCantPaises(),this->player->getCantEjercitos(),this->getFichasDisp());
 }
+
 void TEG::Turno::paisClick(int id){}
 void TEG::Turno::btnAttack(){}
 void TEG::Turno::startTurno(){} // Sobre escrita por los hijos
