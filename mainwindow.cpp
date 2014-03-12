@@ -394,7 +394,7 @@ void MainWindow::popupCreatePlayer(){
         return;
 
     // Crear Jugador: IA
-    IA = QInputDialog::getInt(this,tr("Nuevo Jugador"),tr("Inteligencia Artificial. (cancelar si no se desea)"),1,1,5,1,&ok);
+    IA = QInputDialog::getInt(this,tr("Nuevo Jugador"),tr("Inteligencia Artificial. (cancelar si no se desea)"),1,1,1,1,&ok);
     if ( !ok ) IA = 0;
 
     this->game->addPlayer(nom,color,IA);

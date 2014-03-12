@@ -24,10 +24,12 @@ int TEG::HeuristicaAtaque::factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaq
     bool importante = turno->player->objetivo->favorece(turno->player->getContArray(),acc->getDestino());
     if( importante)
         hype += 10;
+    int extras = turno->player->objetivo->extra(turno->player->getContArray(),acc->getDestino());
+    hype -= extras;
     QList<TEG::Pais*> * enemigos = turno->player->getLimitrofes((*acc).getOrigen()->getID(), false);
     int cantidadLmitrofes = turno->ronda->game->mapa->getCantLimitrofes((*acc).getOrigen()->getID());
     int cantidadEnemigosAdy = enemigos->size();
-    float ratio = ((float)cantidadEnemigosAdy/cantidadLmitrofes)*10;
+    float ratio = ((float)cantidadEnemigosAdy/cantidadLmitrofes);
     hype *= ratio;
 
     return hype;
@@ -52,12 +54,11 @@ int TEG::HeuristicaAtaque::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais
     if(ratio == 0.0)
         return 0;
     else{
-        int a = turno->player->objetivo->extra(turno->player->getContArray(),pais);
-        qDebug() << " a: " << a ;
-        if(a < 0)
-            return ratio*(-a);
+        int extras = turno->player->objetivo->extra(turno->player->getContArray(),pais);
+        if(extras < 0)
+            return ratio*(-extras);
         else
-            if(a=0){
+            if(extras = 0){
                 valor= (fichasEnemigas/2 - fichasAmigas);
                 if(valor <= 0)
                     return 1;
@@ -79,8 +80,9 @@ int TEG::HeuristicaAtaque::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){
     int fichasAmigas = pais->getEjercitos();
     for(QList<TEG::Pais*>::iterator it= enemigos->begin(); it != enemigos->end(); it++)
         fichasEnemigas += (*it)->getEjercitos()- 1;
-    danger =(fichasEnemigas/2 - fichasAmigas);
-    return danger;
+    danger =(fichasEnemigas - fichasAmigas);
+
+    return danger + 5;
 }
 
 int TEG::HeuristicaAtaque::nextReagrupe(TEG::TurnoAtaques *turno, AccionReagrupe *acc){

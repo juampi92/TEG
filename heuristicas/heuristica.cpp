@@ -74,9 +74,9 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
     }
     // Pregunto si quiero pasar (next()). Si no:
     if ( tabla->size() == 0 || this->next(turno,accion->getOrigen()) > max ){
-        qDebug() << "Next!";
         turno->end(); // NEXT!
     }else{
+        qDebug() << "danger " << this->next(turno,accion->getOrigen()) << " > max " << max;
         turno->setAccion(accion);
         qDebug() << "Ejecuto accion " << accion->getOrigen()->getName() << " - " << accion->getDestino()->getName();
         accion->execute();
@@ -115,8 +115,8 @@ void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
             }
         }
     }
-    qDebug() << " max " << max;
-    if ( true || tabla->size() == 0 || this->nextReagrupe(turno,accion) > max )
+
+    if ( tabla->size() == 0 || this->nextReagrupe(turno,accion) > max )
         turno->end(); // NEXT!
     else {// ejecutar la primera acción
         turno->setAccion(accion);

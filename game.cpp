@@ -11,13 +11,13 @@ TEG::Game::Game(MainWindow *gui){
     this->jugadores = new QList<TEG::Jugador*>();
     this->started = false;
 
-    this->objetivos[0]=(new TEG::Objetivo(0,QString("Ocupar África, 5 países de América del Norte y 4 países de Europa."),TEG::Utiles::integerArray(5,0,4,0,6,0)));
-    this->objetivos[1]=(new TEG::Objetivo(2,QString("Ocupar Asia y 2 países de América del Sur."),TEG::Utiles::integerArray(0,2,0,15,0,0)));
-    this->objetivos[2]=(new TEG::Objetivo(3,QString("Ocupar Europa, 4 países de Asia y 2 países de América de Sur."),TEG::Utiles::integerArray(0,2,9,4,0,0)));
-    this->objetivos[3]=(new TEG::Objetivo(4,QString("Ocupar América del Norte, 2 países de Oceanía y 4 de Asia."),TEG::Utiles::integerArray(10,0,0,4,0,2)));
-    this->objetivos[4]=(new TEG::Objetivo(5,QString("Ocupar 2 países de Oceanía, 2 países de África, 2 países de América del Sur, 3 países de Europa, 4 de América del Norte y 3 de Asia."),TEG::Utiles::integerArray(4,2,3,3,2,2)));
+    this->objetivos[0]=(new TEG::Objetivo(0,QString("Ocupar África, 5 países de América del Norte y 4 países de Europa."),TEG::Utiles::integerArray(5,0,4,6,0,0)));
+    this->objetivos[1]=(new TEG::Objetivo(2,QString("Ocupar Asia y 2 países de América del Sur."),TEG::Utiles::integerArray(0,2,0,0,15,0)));
+    this->objetivos[2]=(new TEG::Objetivo(3,QString("Ocupar Europa, 4 países de Asia y 2 países de América de Sur."),TEG::Utiles::integerArray(0,2,9,0,4,0)));
+    this->objetivos[3]=(new TEG::Objetivo(4,QString("Ocupar América del Norte, 2 países de Oceanía y 4 de Asia."),TEG::Utiles::integerArray(10,0,0,0,4,2)));
+    this->objetivos[4]=(new TEG::Objetivo(5,QString("Ocupar 2 países de Oceanía, 2 países de África, 2 países de América del Sur, 3 países de Europa, 4 de América del Norte y 3 de Asia."),TEG::Utiles::integerArray(4,2,3,2,3,2)));
     this->objetivos[5]=(new TEG::Objetivo(6,QString("Ocupar Oceanía, América del Norte y 2 países de Europa."),TEG::Utiles::integerArray(10,0,2,0,0,4)));
-    this->objetivos[6]=(new TEG::Objetivo(7,QString("Ocupar América del Sur, África y 5 países de América del Norte."),TEG::Utiles::integerArray(5,6,0,0,6,0)));
+    this->objetivos[6]=(new TEG::Objetivo(7,QString("Ocupar América del Sur, África y 5 países de América del Norte."),TEG::Utiles::integerArray(5,6,0,6,0,0)));
 
     // Creación automática de jugadores. Propósitos de Test
     this->addPlayer("Juan","red",1);

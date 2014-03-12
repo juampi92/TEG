@@ -6,8 +6,8 @@ TEG::Mapa::Mapa(TEG::Game *game){
     this->continentes[0] = new TEG::Continente("America del Norte",0);
     this->continentes[1] = new TEG::Continente("America del Sur",1);
     this->continentes[2] = new TEG::Continente("Europa",2);
-    this->continentes[3] = new TEG::Continente("Asia",3);
-    this->continentes[4] = new TEG::Continente("Africa",4);
+    this->continentes[3] = new TEG::Continente("Africa",3);
+    this->continentes[4] = new TEG::Continente("Asia",4);
     this->continentes[5] = new TEG::Continente("Oceania",5);
 
     this->paises_por_continente[0] = 10;
