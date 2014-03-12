@@ -21,7 +21,6 @@ public:
     int getEjercitos();
     int addEjercitos(int cant);
     int removeEjercitos(int cant);
-
     int setEjercitos(int cant);
     void setOwner(TEG::Jugador *player);
 

@@ -52,7 +52,7 @@ int TEG::Objetivo::restantes(const int *conts){
 }
 
 bool TEG::Objetivo::favorece(int *conts, TEG::Pais* pais){
-    if ( this->continentes[pais->getContinenteID()] <= (conts[pais->getContinenteID()]+1) ) return true;
+    if ( this->continentes[pais->getContinenteID()] >= (conts[pais->getContinenteID()]+1) ) return true;
     return false;
 }
 

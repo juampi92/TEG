@@ -21,6 +21,7 @@ public:
 
     TEG::Pais *getPais(int id);
     QList<TEG::Pais*> *getLimitrofes(int id);
+    int getCantLimitrofes(int id);
     QList<TEG::Pais*> *getPaisesContinente(int id);
 
     TEG::Continente* continentes[6];
@@ -29,7 +30,7 @@ public:
     int paises_por_continente[6];
 
 private:
-    QList<TEG::Pais*>* getPaisesList(int,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1);
+    QList<TEG::Pais*>* setRelacionesAux(int,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1,int=-1);
     TEG::Game *game;
 
 };

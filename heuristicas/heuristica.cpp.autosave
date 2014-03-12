@@ -72,12 +72,9 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
     }
     // Pregunto si quiero pasar (next()). Si no:
 
-//    if ( this->next(turno,accion->getOrigen()) > max )
-    if (0 > max )
-
+    if ( this->next(turno,accion->getOrigen()) > max )
         turno->end(); // NEXT!
     else{
-        qDebug() << "entra " ;
         accion->execute();
     }
 

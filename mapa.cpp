@@ -101,61 +101,61 @@ TEG::Mapa::Mapa(TEG::Game *game){
 
     // Relaciones
 
-    this->relaciones[0] = this->getPaisesList(1,3,35);
-    this->relaciones[1] = this->getPaisesList(0,2,3);
-    this->relaciones[2] = this->getPaisesList(1,3,6,7);
-    this->relaciones[3] = this->getPaisesList(0,1,2,6,4);
-    this->relaciones[4] = this->getPaisesList(3,6,5);
-    this->relaciones[5] = this->getPaisesList(4,10);
-    this->relaciones[6] = this->getPaisesList(2,3,4,7,9);
-    this->relaciones[7] = this->getPaisesList(2,6,8,9);
-    this->relaciones[8] = this->getPaisesList(7,9);
-    this->relaciones[9] = this->getPaisesList(8,6,16);
+    this->relaciones[0] = this->setRelacionesAux(1,3,35);
+    this->relaciones[1] = this->setRelacionesAux(0,2,3);
+    this->relaciones[2] = this->setRelacionesAux(1,3,6,7);
+    this->relaciones[3] = this->setRelacionesAux(0,1,2,6,4);
+    this->relaciones[4] = this->setRelacionesAux(3,6,5);
+    this->relaciones[5] = this->setRelacionesAux(4,10);
+    this->relaciones[6] = this->setRelacionesAux(2,3,4,7,9);
+    this->relaciones[7] = this->setRelacionesAux(2,6,8,9);
+    this->relaciones[8] = this->setRelacionesAux(7,9);
+    this->relaciones[9] = this->setRelacionesAux(8,6,16);
 
-    this->relaciones[10] = this->getPaisesList(11,12,5);
-    this->relaciones[11] = this->getPaisesList(13,14,12,10);
-    this->relaciones[12] = this->getPaisesList(10,11,14,15,25);
-    this->relaciones[13] = this->getPaisesList(11,14,49);
-    this->relaciones[14] = this->getPaisesList(13,11,12,15);
-    this->relaciones[15] = this->getPaisesList(14,12);
+    this->relaciones[10] = this->setRelacionesAux(11,12,5);
+    this->relaciones[11] = this->setRelacionesAux(13,14,12,10);
+    this->relaciones[12] = this->setRelacionesAux(10,11,14,15,25);
+    this->relaciones[13] = this->setRelacionesAux(11,14,49);
+    this->relaciones[14] = this->setRelacionesAux(13,11,12,15);
+    this->relaciones[15] = this->setRelacionesAux(14,12);
 
-    this->relaciones[16] = this->getPaisesList(9,19,17);
-    this->relaciones[17] = this->getPaisesList(16,18);
-    this->relaciones[18] = this->getPaisesList(17,20,31,37,41);
-    this->relaciones[19] = this->getPaisesList(16,23,21);
-    this->relaciones[20] = this->getPaisesList(21,18,41,28);
-    this->relaciones[21] = this->getPaisesList(19,22,24,20);
-    this->relaciones[22] = this->getPaisesList(21,24,23);
-    this->relaciones[23] = this->getPaisesList(19,25,22);
-    this->relaciones[24] = this->getPaisesList(22,21);
+    this->relaciones[16] = this->setRelacionesAux(9,19,17);
+    this->relaciones[17] = this->setRelacionesAux(16,18);
+    this->relaciones[18] = this->setRelacionesAux(17,20,31,37,41);
+    this->relaciones[19] = this->setRelacionesAux(16,23,21);
+    this->relaciones[20] = this->setRelacionesAux(21,18,41,28);
+    this->relaciones[21] = this->setRelacionesAux(19,22,24,20);
+    this->relaciones[22] = this->setRelacionesAux(21,24,23);
+    this->relaciones[23] = this->setRelacionesAux(19,25,22);
+    this->relaciones[24] = this->setRelacionesAux(22,21);
 
-    this->relaciones[25] = this->getPaisesList(26,28,27,12,23);
-    this->relaciones[26] = this->getPaisesList(25,27,29,30);
-    this->relaciones[27] = this->getPaisesList(28,25,26,29);
-    this->relaciones[28] = this->getPaisesList(25,27,30,20,41,44);
-    this->relaciones[29] = this->getPaisesList(26,27);
-    this->relaciones[30] = this->getPaisesList(26,28);
+    this->relaciones[25] = this->setRelacionesAux(26,28,27,12,23);
+    this->relaciones[26] = this->setRelacionesAux(25,27,29,30);
+    this->relaciones[27] = this->setRelacionesAux(28,25,26,29);
+    this->relaciones[28] = this->setRelacionesAux(25,27,30,20,41,44);
+    this->relaciones[29] = this->setRelacionesAux(26,27);
+    this->relaciones[30] = this->setRelacionesAux(26,28);
 
-    this->relaciones[31] = this->getPaisesList(32,34,38,37,18);
-    this->relaciones[32] = this->getPaisesList(31,34,33);
-    this->relaciones[33] = this->getPaisesList(32,34);
-    this->relaciones[34] = this->getPaisesList(31,32,33,35,40,38);
-    this->relaciones[35] = this->getPaisesList(34,40,36,0);
-    this->relaciones[36] = this->getPaisesList(35,40);
-    this->relaciones[37] = this->getPaisesList(31,38,39,40,41,42,18); // Hago la suposicion de que Iran(37) y Siberia(34) NO son limitrofes
-    this->relaciones[38] = this->getPaisesList(31,34,40,39,37);
-    this->relaciones[39] = this->getPaisesList(37,38,40);
-    this->relaciones[40] = this->getPaisesList(36,35,34,38,39,37,42,43);
-    this->relaciones[41] = this->getPaisesList(37,44,45,28,20,18);
-    this->relaciones[42] = this->getPaisesList(37,40,43,46);
-    this->relaciones[43] = this->getPaisesList(42,40,47);
-    this->relaciones[44] = this->getPaisesList(41,45,28);
-    this->relaciones[45] = this->getPaisesList(41,44);
+    this->relaciones[31] = this->setRelacionesAux(32,34,38,37,18);
+    this->relaciones[32] = this->setRelacionesAux(31,34,33);
+    this->relaciones[33] = this->setRelacionesAux(32,34);
+    this->relaciones[34] = this->setRelacionesAux(31,32,33,35,40,38);
+    this->relaciones[35] = this->setRelacionesAux(34,40,36,0);
+    this->relaciones[36] = this->setRelacionesAux(35,40);
+    this->relaciones[37] = this->setRelacionesAux(31,38,39,40,41,42,18); // Hago la suposicion de que Iran(37) y Siberia(34) NO son limitrofes
+    this->relaciones[38] = this->setRelacionesAux(31,34,40,39,37);
+    this->relaciones[39] = this->setRelacionesAux(37,38,40);
+    this->relaciones[40] = this->setRelacionesAux(36,35,34,38,39,37,42,43);
+    this->relaciones[41] = this->setRelacionesAux(37,44,45,28,20,18);
+    this->relaciones[42] = this->setRelacionesAux(37,40,43,46);
+    this->relaciones[43] = this->setRelacionesAux(42,40,47);
+    this->relaciones[44] = this->setRelacionesAux(41,45,28);
+    this->relaciones[45] = this->setRelacionesAux(41,44);
 
-    this->relaciones[46] = this->getPaisesList(49,42);
-    this->relaciones[47] = this->getPaisesList(49,43);
-    this->relaciones[48] = this->getPaisesList(49);
-    this->relaciones[49] = this->getPaisesList(46,47,48,13);
+    this->relaciones[46] = this->setRelacionesAux(49,42);
+    this->relaciones[47] = this->setRelacionesAux(49,43);
+    this->relaciones[48] = this->setRelacionesAux(49);
+    this->relaciones[49] = this->setRelacionesAux(46,47,48,13);
 }
 
 TEG::Mapa::~Mapa(){
@@ -169,11 +169,15 @@ QList<TEG::Pais*> * TEG::Mapa::getLimitrofes(int id){
     return this->relaciones[id];
 }
 
+int TEG::Mapa::getCantLimitrofes(int id){
+    return this->relaciones[id]->size();
+}
+
 QList<TEG::Pais*> *TEG::Mapa::getPaisesContinente(int id){
     return this->continentes[id]->getPaises();
 }
 
-QList<TEG::Pais*>* TEG::Mapa::getPaisesList(int a,int b,int c,int d,int e,int f,int g,int h){
+QList<TEG::Pais*>* TEG::Mapa::setRelacionesAux(int a,int b,int c,int d,int e,int f,int g,int h){
     QList<TEG::Pais*> * li;
     li = new QList<TEG::Pais*>();
     if(a > -1)

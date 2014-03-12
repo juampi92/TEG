@@ -7,10 +7,10 @@ TEG::TurnoFichas::TurnoFichas(TEG::RondaManager *ronda, TEG::Jugador *plyr, int 
 
     if ( spec > 0 )
         this->fichasDisp = spec;
-    else {
+    else
         this->fichasDisp = this->calcularFichas();
         this->createContsArray();
-    }
+
 }
 
 TEG::TurnoFichas::~TurnoFichas(){

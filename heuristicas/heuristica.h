@@ -26,9 +26,9 @@ public:
     virtual float cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc);
     virtual float factorAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
     virtual float cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc);
-    virtual int factorFichas(TEG::TurnoFichas *turno, QList<TEG::Pais *> *paises, TEG::Pais *pais);
+    virtual int factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais);
 
-    virtual int next(TEG::TurnoAtaques *turno);
+    virtual int next(TEG::TurnoAtaques *turno, Pais *pais);
 protected:
     QList<TEG::Accion*> *getAcciones(TEG::TurnoAtaques *turno, bool reagrupe );
 
