@@ -24,11 +24,13 @@ void TEG::InteligenciaArtificial::playFichas(TEG::Turno *turno){
 
 void TEG::InteligenciaArtificial::playAtaque(TEG::Turno *turno){
     this->game->gui->allEnabled(false);
+    this->game->gui->nextButton("");
     this->heuristica->ataque( (TEG::TurnoAtaques*) turno);
 }
 
 void TEG::InteligenciaArtificial::playReagrupe(TEG::Turno * turno){
     this->game->gui->allEnabled(false);
+    this->game->gui->nextButton("");
     this->heuristica->reagrupe((TEG::TurnoAtaques*)turno);
 }
 

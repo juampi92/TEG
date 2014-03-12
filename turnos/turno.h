@@ -30,7 +30,7 @@ public:
     TEG::Jugador *player;
     TEG::RondaManager *ronda;
 protected:
-    virtual void startTurno(bool re_agrupe);
+    virtual void startTurno();
 
 };
 

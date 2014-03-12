@@ -1,6 +1,8 @@
 #include "turnoataques.h"
 #include "utiles.h"
 
+#include <QtAlgorithms>
+
 TEG::TurnoAtaques::TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr) : TEG::Turno(ronda,plyr){
     this->reagrupe= false;
     this->origen = NULL;
@@ -13,13 +15,18 @@ TEG::TurnoAtaques::TurnoAtaques(TEG::RondaManager *ronda, TEG::Jugador *plyr) : 
 }
 
 TEG::TurnoAtaques::~TurnoAtaques(){
-    QList<TEG::AccionAtaque*>::iterator i;
-    QList<TEG::AccionReagrupe*>::iterator j;
+    // FALLA AL BORRAR!!
 
-    for ( i = this->ataques->begin() ; i != this->ataques->end() ; i++)
-        delete (*i);
-    for ( j = this->reagrupes->begin() ; j != this->reagrupes->end() ; j++)
-        delete (*j);
+    /*int cant = this->ataques->count();
+    for (int i=0; i< cant; i++)
+        delete ( (TEG::AccionAtaque*) this->ataques->takeAt(0));
+
+    cant = this->reagrupes->count();
+    for (int i=0; i< cant; i++)
+        delete ( (TEG::AccionReagrupe*) this->reagrupes->takeAt(0));*/
+
+    /*qDeleteAll(*this->ataques);
+    qDeleteAll(*this->reagrupes);*/
 
     this->ataques->clear();
     this->reagrupes->clear();
@@ -27,16 +34,16 @@ TEG::TurnoAtaques::~TurnoAtaques(){
 
 void TEG::TurnoAtaques::play(){
     TEG::Turno::play();
-    this->startTurno(false);
+    this->startTurno();
 }
 
 bool TEG::TurnoAtaques::next(){
     if ( this->reagrupe ) return true;
 
     this->origen = this->destino = NULL;
-    this->startTurno(true);
 
     this->reagrupe = true;
+    this->startTurno();
     this->ronda->game->gui->setAttackButton(false,false);
     this->ronda->game->gui->nextButton("Terminar Turno");
     return false;
@@ -51,7 +58,7 @@ void TEG::TurnoAtaques::paisClick(int id){
     else if ( this->origen->getID() == id && this->destino == NULL ){
         //qDebug() << "Origen des-selected";
         this->origen = NULL;
-        this->startTurno(false);
+        this->startTurno();
     } else if(this->destino == NULL){
         //qDebug() << "Destino selected";
         this->destino = this->ronda->game->mapa->getPais(id);
@@ -72,22 +79,20 @@ void TEG::TurnoAtaques::btnAttack(){
     if ( this->reagrupe ){
         TEG::AccionReagrupe *acc = new TEG::AccionReagrupe(this->origen,this->destino,this->ronda->game,this);
         this->setAccion(acc);
-        if ( ! this->currentAction->validar() ){ this->startTurno(false); return; }
+        if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
         this->currentAction->execute();
         this->reagrupes->append(acc);
     } else {
         this->setAccion(new TEG::AccionAtaque(this->origen,this->destino,this->ronda->game));
-        if ( ! this->currentAction->validar() ){ this->startTurno(false); return; }
+        if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
         this->currentAction->execute();
     }
 }
 
-void TEG::TurnoAtaques::startTurno(bool re_agrupe){
+void TEG::TurnoAtaques::startTurno(){
     this->origen = NULL; this->destino = NULL;
-    if(!re_agrupe)
-        this->player->playAtaque(this);
-    else
-        this->player->playReagrupe(this);
+    if(this->reagrupe) this->player->playReagrupe(this);
+    else this->player->playAtaque(this);
 }
 
 void TEG::TurnoAtaques::selectOrigen(int id, bool friends){
@@ -108,7 +113,7 @@ void TEG::TurnoAtaques::selectDestino(int id){
 void TEG::TurnoAtaques::endDadosAnimacion(){
     if ( this->currentAction->endAnimacion() || this->player->getIA() > 0 ) {
         this->origen = this->destino = NULL;
-        this->startTurno(false);
+        this->startTurno();
     }
 
     this->ronda->game->gui->setPlayerInfo("",this->player->getCantPaises(),this->player->getCantEjercitos());

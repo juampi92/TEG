@@ -36,10 +36,11 @@ void TEG::RondaManager::nextTurno(){
     if ( this->actual == this->players->end() )
         this->actual = this->players->begin();
 
-    if ( this->actual == this->inicio ) // Vuelvo al inicio
+    if ( this->actual == this->inicio ){ // Vuelvo al inicio
         this->nextRonda();
-    else
+    } else{
         this->playTurno();
+    }
 
 }
 void TEG::RondaManager::nextRonda(){
@@ -65,6 +66,7 @@ void TEG::RondaManager::desplazarOrden(){
 
 void TEG::RondaManager::playTurno(){
     if ( this->turno != NULL ) delete this->turno;
+    qDebug() << "A";
 
     if ( this->type == 0 ){
 
@@ -76,6 +78,7 @@ void TEG::RondaManager::playTurno(){
     }else if ( this->type == 1 )
         this->turno = new TEG::TurnoAtaques(this,*this->actual);
 
+    qDebug() << "B";
     this->turno->play();
 }
 

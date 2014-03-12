@@ -51,6 +51,7 @@ void TEG::Heuristica::fichas(TEG::TurnoFichas *turno){
 
 void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
     // Usar get Acciones, y a cada acción aplicar la heurística (de ataque)
+
     QList<TEG::Accion*> *accs = this->getAcciones(turno,false);
     QList<QPair<TEG::AccionAtaque*,int> > * tabla = new QList<QPair<TEG::AccionAtaque*,int> >();
     for ( QList<TEG::Accion*>::iterator it = accs->begin() ; it != accs->end() ; it++ ){
@@ -68,18 +69,16 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
             if((*it).second > max){
                 max = (*it).second;
                 accion = (*it).first;
-            } else
-            qDebug() << " --- "  << (*it).second << " > " << max;
+            }
         }
     }
     // Pregunto si quiero pasar (next()). Si no:
-    //qDebug() << "Accion maxima: " << accion->getOrigen()->getName() << " vs " << accion->getDestino()->getName() << " con un factor de " << max;
-    //qDebug() << " el next da >>>>>>> " << this->next(turno,accion->getOrigen()) << "y el max: " << max;
-    if ( this->next(turno,accion->getOrigen()) > max ){
-        qDebug() << "Next! max: " << max << ". next: " << this->next(turno,accion->getOrigen());
+    if ( tabla->size() == 0 || this->next(turno,accion->getOrigen()) > max ){
+        qDebug() << "Next!";
         turno->end(); // NEXT!
     }else{
         turno->setAccion(accion);
+        qDebug() << "Ejecuto accion " << accion->getOrigen()->getName() << " - " << accion->getDestino()->getName();
         accion->execute();
     }
 
@@ -87,13 +86,11 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
     tabla->clear(); // vacío la tabla (no tan necesario)
     for ( QList<TEG::Accion*>::iterator i = accs->begin() ; i != accs->end() ; i++ ) // Borro las acciones (necesario)
         if ( *i != accion ) delete *i;
-
+    accs->clear();
 }
 
 void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
     // Usar get Acciones, y a cada acción aplicar la heurística (de ataque)
-    qDebug() << " RATA " ;
-
     QList<TEG::Accion*> *accs = this->getAcciones(turno,true);
     QList<QPair<TEG::AccionReagrupe*,int> > * tabla = new QList<QPair<TEG::AccionReagrupe*,int> >();
     for ( QList<TEG::Accion*>::iterator i = accs->begin() ; i != accs->end() ; i++ ){
@@ -112,14 +109,14 @@ void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
     if(tabla->size() > 0){
         accion = tabla->first().first;
         for( QList<QPair<TEG::AccionReagrupe*,int> >::iterator it = tabla->begin() ; it != tabla->end() ; it++ ){
-        if((*it).second > max){
-            max = (*it).second;
-            accion = (*it).first;
+            if((*it).second > max){
+                max = (*it).second;
+                accion = (*it).first;
             }
         }
     }
     qDebug() << " max " << max;
-    if ( this->nextReagrupe(turno,accion) > max )
+    if ( true || tabla->size() == 0 || this->nextReagrupe(turno,accion) > max )
         turno->end(); // NEXT!
     else {// ejecutar la primera acción
         turno->setAccion(accion);
