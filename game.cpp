@@ -20,7 +20,7 @@ TEG::Game::Game(MainWindow *gui){
     this->objetivos[6]=(new TEG::Objetivo(7,QString("Ocupar América del Sur, África y 5 países de América del Norte."),TEG::Utiles::integerArray(5,6,0,0,6,0)));
 
     // Creación automática de jugadores. Propósitos de Test
-    this->addPlayer("Juan","red",0);
+    this->addPlayer("Juan","red",1);
     this->addPlayer("Diego","black",1);
     this->addPlayer("Compu","blue",1);
 }
