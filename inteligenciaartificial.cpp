@@ -27,6 +27,11 @@ void TEG::InteligenciaArtificial::playAtaque(TEG::Turno *turno){
     this->heuristica->ataque( (TEG::TurnoAtaques*) turno);
 }
 
+void TEG::InteligenciaArtificial::playReagrupe(TEG::Turno * turno){
+    this->game->gui->allEnabled(false);
+    this->heuristica->reagrupe((TEG::TurnoAtaques*)turno);
+}
+
 int TEG::InteligenciaArtificial::playReagrupeCant(TEG::Turno * turno, TEG::Accion *acc){
     return this->heuristica->cantidadReagrupe((TEG::TurnoAtaques*) turno,(TEG::AccionReagrupe*) acc);
 }

@@ -110,6 +110,10 @@ void TEG::Jugador::playAtaque(TEG::Turno *turno){
     this->game->gui->setPaisesEnabled(TEG::Utiles::toIntList(this->getListPaises(true)),true);
 }
 
+void TEG::Jugador::playReagrupe(TEG::Turno * turno){
+
+}
+
 int TEG::Jugador::playReagrupeCant(TEG::Turno * turno, TEG::Accion *acc){
     return this->game->gui->popUpFichas(2,1,acc->getMax());
 }

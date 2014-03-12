@@ -42,6 +42,7 @@ public:
 
     virtual void playFichas(TEG::Turno *turno);
     virtual void playAtaque(TEG::Turno *turno);
+    virtual void playReagrupe(TEG::Turno * turno);
     virtual int playReagrupeCant(TEG::Turno * turno, TEG::Accion *acc);
     virtual int playConquistaCant(TEG::Turno * turno, TEG::Accion *acc);
 

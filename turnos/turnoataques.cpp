@@ -27,14 +27,14 @@ TEG::TurnoAtaques::~TurnoAtaques(){
 
 void TEG::TurnoAtaques::play(){
     TEG::Turno::play();
-    this->startTurno();
+    this->startTurno(false);
 }
 
 bool TEG::TurnoAtaques::next(){
     if ( this->reagrupe ) return true;
 
     this->origen = this->destino = NULL;
-    this->startTurno();
+    this->startTurno(true);
 
     this->reagrupe = true;
     this->ronda->game->gui->setAttackButton(false,false);
@@ -51,7 +51,7 @@ void TEG::TurnoAtaques::paisClick(int id){
     else if ( this->origen->getID() == id && this->destino == NULL ){
         //qDebug() << "Origen des-selected";
         this->origen = NULL;
-        this->startTurno();
+        this->startTurno(false);
     } else if(this->destino == NULL){
         //qDebug() << "Destino selected";
         this->destino = this->ronda->game->mapa->getPais(id);
@@ -72,19 +72,22 @@ void TEG::TurnoAtaques::btnAttack(){
     if ( this->reagrupe ){
         TEG::AccionReagrupe *acc = new TEG::AccionReagrupe(this->origen,this->destino,this->ronda->game,this);
         this->setAccion(acc);
-        if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
+        if ( ! this->currentAction->validar() ){ this->startTurno(false); return; }
         this->currentAction->execute();
         this->reagrupes->append(acc);
     } else {
         this->setAccion(new TEG::AccionAtaque(this->origen,this->destino,this->ronda->game));
-        if ( ! this->currentAction->validar() ){ this->startTurno(); return; }
+        if ( ! this->currentAction->validar() ){ this->startTurno(false); return; }
         this->currentAction->execute();
     }
 }
 
-void TEG::TurnoAtaques::startTurno(){
+void TEG::TurnoAtaques::startTurno(bool re_agrupe){
     this->origen = NULL; this->destino = NULL;
-    this->player->playAtaque(this);
+    if(!re_agrupe)
+        this->player->playAtaque(this);
+    else
+        this->player->playReagrupe(this);
 }
 
 void TEG::TurnoAtaques::selectOrigen(int id, bool friends){
@@ -105,7 +108,7 @@ void TEG::TurnoAtaques::selectDestino(int id){
 void TEG::TurnoAtaques::endDadosAnimacion(){
     if ( this->currentAction->endAnimacion() || this->player->getIA() > 0 ) {
         this->origen = this->destino = NULL;
-        this->startTurno();
+        this->startTurno(false);
     }
 
     this->ronda->game->gui->setPlayerInfo("",this->player->getCantPaises(),this->player->getCantEjercitos());

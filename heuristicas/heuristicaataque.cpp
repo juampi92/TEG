@@ -7,8 +7,12 @@ TEG::HeuristicaAtaque::~HeuristicaAtaque()
 {
 }
 
-float TEG::HeuristicaAtaque::factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){
-
+int TEG::HeuristicaAtaque::factorReagrupe(TEG::TurnoAtaques *turno, TEG::AccionReagrupe *acc){
+    QList<TEG::Pais*> * limitrofes = (*acc).getOrigen()->getOwner()->getLimitrofes((*acc).getOrigen()->getID(),false);
+    if(limitrofes->size() == 0)
+        return 10;
+    else
+        return -1;
 }
 
 float TEG::HeuristicaAtaque::cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){
@@ -77,4 +81,9 @@ int TEG::HeuristicaAtaque::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){
         fichasEnemigas += (*it)->getEjercitos()- 1;
     danger =(fichasEnemigas/2 - fichasAmigas);
     return danger;
+}
+
+int TEG::HeuristicaAtaque::nextReagrupe(TEG::TurnoAtaques *turno, AccionReagrupe *acc){
+
+    return 0;
 }

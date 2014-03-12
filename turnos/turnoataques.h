@@ -27,7 +27,7 @@ public:
     void setAccion(TEG::Accion * accion);
 private:
 
-    void startTurno();
+    void startTurno(bool re_agrupe);
     void selectOrigen(int id, bool friends);
     void selectDestino(int id);
 

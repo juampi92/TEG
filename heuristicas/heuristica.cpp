@@ -92,6 +92,8 @@ void TEG::Heuristica::ataque(TEG::TurnoAtaques *turno){
 
 void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
     // Usar get Acciones, y a cada acción aplicar la heurística (de ataque)
+    qDebug() << " RATA " ;
+
     QList<TEG::Accion*> *accs = this->getAcciones(turno,true);
     QList<QPair<TEG::AccionReagrupe*,int> > * tabla = new QList<QPair<TEG::AccionReagrupe*,int> >();
     for ( QList<TEG::Accion*>::iterator i = accs->begin() ; i != accs->end() ; i++ ){
@@ -100,13 +102,24 @@ void TEG::Heuristica::reagrupe(TEG::TurnoAtaques *turno){
         par.second = this->factorReagrupe(turno,(TEG::AccionReagrupe*) *i);
         tabla->append(par);
     }
-
+     qDebug() << " REAGRUPE " ;
     // Ordenar las acciones con qSort y TEG::Heuristica::sortingAcciones
     //qSort(tabla->begin(),tabla->end(), TEG::Heuristica::sortingAccion);
 
     // Pregunto si quiero pasar (next()). Si no:
-    TEG::AccionReagrupe* accion = tabla->first().first;
-    if ( this->next(turno,accion->getOrigen()) > tabla->first().second )
+    int max = -1000;
+    TEG::AccionReagrupe* accion;
+    if(tabla->size() > 0){
+        accion = tabla->first().first;
+        for( QList<QPair<TEG::AccionReagrupe*,int> >::iterator it = tabla->begin() ; it != tabla->end() ; it++ ){
+        if((*it).second > max){
+            max = (*it).second;
+            accion = (*it).first;
+            }
+        }
+    }
+    qDebug() << " max " << max;
+    if ( this->nextReagrupe(turno,accion) > max )
         turno->end(); // NEXT!
     else {// ejecutar la primera acción
         turno->setAccion(accion);
@@ -136,12 +149,13 @@ QList<TEG::Accion*> *TEG::Heuristica::getAcciones(TEG::TurnoAtaques *turno, bool
 }
 
 // No tocar.
-float TEG::Heuristica::factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
+int TEG::Heuristica::factorReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
 float TEG::Heuristica::cantidadReagrupe(TEG::TurnoAtaques *turno,TEG::AccionReagrupe *acc){return 0;}
 int TEG::Heuristica::factorAtaque(TEG::TurnoAtaques *turno, TEG::AccionAtaque *acc){return 0;}
 float TEG::Heuristica::cantidadAtaque(TEG::TurnoAtaques *turno,TEG::AccionAtaque *acc){return 0;}
 int TEG::Heuristica::factorFichas(TEG::TurnoFichas *turno, TEG::Pais *pais){return 0;}
 int TEG::Heuristica::next(TEG::TurnoAtaques *turno, TEG::Pais * pais){return 1;}
+int TEG::Heuristica::nextReagrupe(TEG::TurnoAtaques *turno, TEG::AccionReagrupe * acc){return 1;}
 
 bool TEG::Heuristica::sortingAccion(const QPair<TEG::Accion*,int>& e1, const QPair<TEG::Accion*,int>& e2) { // sorting by QHash Value
     return ( e1.second < e2.second );
