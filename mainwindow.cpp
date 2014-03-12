@@ -367,6 +367,10 @@ void MainWindow::popupCreatePlayer(){
         QMessageBox::information(this, tr("Error!"),tr("El máximo de 6 jugadores ya fue alcanzado"));
         return;
     }
+    else if ( this->game->hasStarted()){
+            QMessageBox::information(this, tr("Error!"),tr("El juego ya empezo"));
+            return;
+        }
 
     bool ok; int IA;
     QString nom,color;
@@ -401,7 +405,7 @@ void MainWindow::popupCreatePlayer(){
 }
 
 void MainWindow::start(){
-    if ( this->game->getCantPlayers() < 2 ){
+    if ( this->game->getCantPlayers() < 3 ){
         QMessageBox::information(this, tr("Error!"),tr("Se necesita un mínimo de 3 jugadores"));
         return;
     }

@@ -1,0 +1,11 @@
+QPushButton[clase="pais"] {
+	color: white;
+    background-color: grey;
+    border-style: outset;
+    border-width: 2px;
+    border-color: black;
+    font: bold 10px;
+}
+QPushButton[clase="pais"]:pressed  {
+    border-color: yellow;
+}
